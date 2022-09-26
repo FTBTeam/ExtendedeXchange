@@ -1,0 +1,34 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"group": "extendedexchange:arcane_tablet",
+	"result": {
+		"item": "extendedexchange:arcane_tablet"
+	},
+	"pattern": [
+		"TWT",
+		"MSM",
+		"TCT"
+	],
+	"key": {
+		"T": {
+			"item": "extendedexchange:stone_table"
+		},
+		"M": [
+			{
+				"item": "extendedexchange:magenta_matter"
+			},
+			{
+				"item": "projecte:transmutation_tablet"
+			}
+		],
+		"W": {
+			"item": "minecraft:crafting_table"
+		},
+		"C": {
+			"tag": "forge:chests"
+		},
+		"S": {
+			"item": "extendedexchange:magnum_star_ein"
+		}
+	}
+}

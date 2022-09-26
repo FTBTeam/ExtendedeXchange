@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "[39,)"
+issueTrackerURL = "https://github.com/FTBTeam/ExtendedeXchange/issues"
+license = "GNU LGPLv3"
+
+[[mods]]
+modId = "extendedexchange"
+version = "${version}"
+displayName = "ExtendedeXchange"
+authors = "FTB"
+description = '''
+An addon to ProjectE adding some useful extra blocks and items.
+Not affiliated with the ProjectE project in any way.
+'''
+logoFile = "ex_logo.png"
+
+[[dependencies.extendedexchange]]
+modId = "forge"
+mandatory = true
+versionRange = "[39,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.extendedexchange]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.extendedexchange]]
+modId = "projecte"
+mandatory = true
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"

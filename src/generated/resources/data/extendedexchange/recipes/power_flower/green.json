@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/green",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:green_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:green_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:green_power_flower"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "extendedexchange:block/power_flower",
+  "textures": {
+    "collector": "extendedexchange:block/collector/lime",
+    "relay": "extendedexchange:block/relay/lime"
+  }
+}

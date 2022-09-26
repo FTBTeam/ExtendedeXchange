@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/purple",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:purple_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:purple_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:purple_power_flower"
+  }
+}

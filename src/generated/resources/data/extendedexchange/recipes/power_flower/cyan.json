@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/cyan",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:cyan_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:cyan_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:cyan_power_flower"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:matter/violet",
+  "ingredients": [
+    {
+      "item": "extendedexchange:purple_relay"
+    },
+    {
+      "item": "extendedexchange:violet_matter"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:violet_relay"
+  }
+}

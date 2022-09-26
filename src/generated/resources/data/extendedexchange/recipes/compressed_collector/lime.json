@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/lime",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "extendedexchange:lime_collector"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:lime_compressed_collector"
+  }
+}

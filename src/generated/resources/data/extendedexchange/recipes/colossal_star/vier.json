@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:colossal_star",
+  "ingredients": [
+    {
+      "item": "extendedexchange:colossal_star_drei"
+    },
+    {
+      "item": "extendedexchange:colossal_star_drei"
+    },
+    {
+      "item": "extendedexchange:colossal_star_drei"
+    },
+    {
+      "item": "extendedexchange:colossal_star_drei"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:colossal_star_vier"
+  }
+}

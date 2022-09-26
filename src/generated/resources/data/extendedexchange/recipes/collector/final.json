@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:matter/final",
+  "ingredients": [
+    {
+      "item": "extendedexchange:fading_collector"
+    },
+    {
+      "item": "extendedexchange:final_star_shard"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:final_collector"
+  }
+}

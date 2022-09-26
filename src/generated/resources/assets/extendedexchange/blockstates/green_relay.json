@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "extendedexchange:block/green_relay"
+    }
+  }
+}

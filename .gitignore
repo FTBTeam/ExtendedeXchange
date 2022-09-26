@@ -1,0 +1,29 @@
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+logs
+
+# other
+eclipse
+run
+.vscode
+libs/
+extra-mods-*/
+
+# datagen caches
+**/.cache

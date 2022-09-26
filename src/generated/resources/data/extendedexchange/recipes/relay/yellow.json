@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:matter/yellow",
+  "ingredients": [
+    {
+      "item": "extendedexchange:lime_relay"
+    },
+    {
+      "item": "extendedexchange:yellow_matter"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:yellow_relay"
+  }
+}

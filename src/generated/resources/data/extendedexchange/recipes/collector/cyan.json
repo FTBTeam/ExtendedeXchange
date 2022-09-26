@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:matter/cyan",
+  "ingredients": [
+    {
+      "item": "extendedexchange:blue_collector"
+    },
+    {
+      "item": "extendedexchange:cyan_matter"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:cyan_collector"
+  }
+}

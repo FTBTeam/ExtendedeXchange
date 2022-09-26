@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/green",
+  "pattern": [
+    "FFF",
+    "MMM",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "projecte:aeternalis_fuel"
+    },
+    "M": {
+      "item": "extendedexchange:cyan_matter"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:green_matter"
+  }
+}

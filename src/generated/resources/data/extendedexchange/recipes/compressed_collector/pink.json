@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/pink",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "extendedexchange:pink_collector"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:pink_compressed_collector"
+  }
+}

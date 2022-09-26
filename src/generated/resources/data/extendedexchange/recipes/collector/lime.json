@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "extendedexchange:matter/lime",
+  "ingredients": [
+    {
+      "item": "extendedexchange:green_collector"
+    },
+    {
+      "item": "extendedexchange:lime_matter"
+    }
+  ],
+  "result": {
+    "item": "extendedexchange:lime_collector"
+  }
+}

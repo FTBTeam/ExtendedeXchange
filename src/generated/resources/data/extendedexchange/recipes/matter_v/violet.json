@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/violet",
+  "pattern": [
+    "FMF",
+    "FMF",
+    "FMF"
+  ],
+  "key": {
+    "F": {
+      "item": "projecte:aeternalis_fuel"
+    },
+    "M": {
+      "item": "extendedexchange:purple_matter"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:violet_matter"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "extendedexchange:block/stone_table"
+    },
+    "facing=up": {
+      "model": "extendedexchange:block/stone_table",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "extendedexchange:block/stone_table",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south": {
+      "model": "extendedexchange:block/stone_table",
+      "x": 90
+    },
+    "facing=west": {
+      "model": "extendedexchange:block/stone_table",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east": {
+      "model": "extendedexchange:block/stone_table",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

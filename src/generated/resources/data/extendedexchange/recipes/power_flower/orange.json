@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/orange",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:orange_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:orange_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:orange_power_flower"
+  }
+}

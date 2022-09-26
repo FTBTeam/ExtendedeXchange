@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/lime",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:lime_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:lime_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:lime_power_flower"
+  }
+}

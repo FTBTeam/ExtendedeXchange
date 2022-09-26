@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/white",
+  "pattern": [
+    "CLC",
+    "RRR",
+    "RRR"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:energy_link"
+    },
+    "C": {
+      "item": "extendedexchange:white_compressed_collector"
+    },
+    "R": {
+      "item": "extendedexchange:white_relay"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:white_power_flower"
+  }
+}
