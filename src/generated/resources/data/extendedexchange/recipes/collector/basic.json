@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/basic",
+  "pattern": [
+    "GSG",
+    "GAG",
+    "GFG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "S": {
+      "tag": "forge:glass"
+    },
+    "A": {
+      "item": "projecte:aeternalis_fuel_block"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:basic_collector"
+  }
+}

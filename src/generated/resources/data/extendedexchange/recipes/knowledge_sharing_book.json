@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:tome",
+  "pattern": [
+    "RNR",
+    "NBN",
+    "RNR"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:writable_book"
+    },
+    "R": {
+      "item": "extendedexchange:violet_matter"
+    },
+    "N": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:knowledge_sharing_book"
+  }
+}

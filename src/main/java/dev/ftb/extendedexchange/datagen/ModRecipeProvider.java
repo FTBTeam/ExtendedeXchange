@@ -6,6 +6,7 @@ import dev.ftb.extendedexchange.datagen.recipes.AlchemyTableRecipeBuilder;
 import dev.ftb.extendedexchange.datagen.recipes.Criteria;
 import dev.ftb.extendedexchange.item.ModItems;
 import dev.ftb.extendedexchange.recipes.AlchemyTableRecipe;
+import moze_intel.projecte.gameObjs.registries.PEBlocks;
 import moze_intel.projecte.gameObjs.registries.PEItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.Tags;
 import org.apache.commons.lang3.Validate;
 
 import java.util.function.Consumer;
@@ -55,8 +57,6 @@ class ModRecipeProvider extends RecipeProvider {
                 .save(consumer, new ResourceLocation(MODID, "cast_iron_ingot_from_smelting"));
          */
 
-        Ingredient afuel = Ingredient.of(PEItems.AETERNALIS_FUEL);
-
         for (Matter matter : Matter.VALUES) {
             if (matter.hasMatterItem && matter.getPrev() != null) {
                 Item prevMatterItem = matter.getPrev().getItem().get();
@@ -67,7 +67,7 @@ class ModRecipeProvider extends RecipeProvider {
                         .pattern("FFF")
                         .pattern("MMM")
                         .pattern("FFF")
-                        .define('F', afuel)
+                        .define('F', PEItems.AETERNALIS_FUEL)
                         .define('M', prevMatterItem)
                         .save(consumer, rl("matter_h/" + matter.name));
 
@@ -77,7 +77,7 @@ class ModRecipeProvider extends RecipeProvider {
                         .pattern("FMF")
                         .pattern("FMF")
                         .pattern("FMF")
-                        .define('F', afuel)
+                        .define('F', PEItems.AETERNALIS_FUEL)
                         .define('M', prevMatterItem)
                         .save(consumer, rl("matter_v/" + matter.name));
             }
@@ -176,6 +176,183 @@ class ModRecipeProvider extends RecipeProvider {
                 .requires(startColossal)
                 .save(consumer, rl("colossal_star/ein"));
 
+        ShapedRecipeBuilder.shaped(ModItems.ALCHEMY_TABLE.get())
+                .unlockedBy("has_item", has(ModItems.STONE_TABLE.get()))
+                .group(EXDataGen.MODID + ":alchemy_table")
+                .pattern("123")
+                .pattern("TST")
+                .pattern("LDL")
+                .define('1', PEItems.LOW_COVALENCE_DUST)
+                .define('2', PEItems.MEDIUM_COVALENCE_DUST)
+                .define('3', PEItems.HIGH_COVALENCE_DUST)
+                .define('T', Items.TORCH)
+                .define('S', ModItems.STONE_TABLE.get())
+                .define('D', Tags.Items.GEMS_DIAMOND)
+                .define('L', Tags.Items.RODS_WOODEN)
+                .save(consumer, rl("alchemy_table"));
+
+        ShapedRecipeBuilder.shaped(ModItems.ARCANE_TABLET.get())
+                .unlockedBy("has_item", has(ModItems.STONE_TABLE.get()))
+                .group(EXDataGen.MODID + ":arcane_tablet")
+                .pattern("TWT")
+                .pattern("MSM")
+                .pattern("TCT")
+                .define('T', ModItems.STONE_TABLE.get())
+                .define('W', Items.CRAFTING_TABLE)
+                .define('M', ModItems.MATTER.get(Matter.MAGENTA).get())
+                .define('S', ModItems.MAGNUM_STAR.get(Star.EIN).get())
+                .define('C', Tags.Items.CHESTS_WOODEN)
+                .save(consumer, rl("arcane_tablet"));
+
+        ShapedRecipeBuilder.shaped(ModItems.COMPRESSED_REFINED_LINK.get())
+                .unlockedBy("has_item", has(ModItems.REFINED_LINK.get()))
+                .group(EXDataGen.MODID + ":link")
+                .pattern("LLL")
+                .pattern("LLL")
+                .define('L', ModItems.REFINED_LINK.get())
+                .save(consumer, rl("compressed_refined_link"));
+
+        ShapedRecipeBuilder.shaped(ModItems.ENERGY_LINK.get())
+                .unlockedBy("has_item", has(PEItems.RED_MATTER))
+                .group(EXDataGen.MODID + ":link")
+                .pattern("LMH")
+                .pattern("SRS")
+                .pattern("HML")
+                .define('L', PEItems.LOW_COVALENCE_DUST)
+                .define('M', PEItems.MEDIUM_COVALENCE_DUST)
+                .define('H', PEItems.HIGH_COVALENCE_DUST)
+                .define('S', Tags.Items.STONE)
+                .define('R', PEItems.RED_MATTER)
+                .save(consumer, rl("energy_link"));
+
+        ShapedRecipeBuilder.shaped(ModItems.FINAL_STAR.get())
+                .unlockedBy("has_item", has(ModItems.POWER_FLOWER.get(Matter.FINAL).get()))
+                .group(EXDataGen.MODID + ":star")
+                .pattern("PPP")
+                .pattern("PEP")
+                .pattern("PPP")
+                .define('P', ModItems.POWER_FLOWER.get(Matter.FINAL).get())
+                .define('E', Items.DRAGON_EGG)
+                .save(consumer, rl("final_star"));
+
+        ShapedRecipeBuilder.shaped(ModItems.FINAL_STAR_SHARD.get())
+                .unlockedBy("has_item", has(ModItems.COLOSSAL_STAR.get(Star.OMEGA).get()))
+                .group(EXDataGen.MODID + ":star")
+                .pattern("CCC")
+                .pattern("CSC")
+                .pattern("CCC")
+                .define('C', ModItems.COLOSSAL_STAR.get(Star.OMEGA).get())
+                .define('S', Items.NETHER_STAR)
+                .save(consumer, rl("final_star_shard"));
+
+        ShapedRecipeBuilder.shaped(ModItems.KNOWLEDGE_SHARING_BOOK.get())
+                .unlockedBy("has_item", has(ModItems.MATTER.get(Matter.VIOLET).get()))
+                .group(EXDataGen.MODID + ":tome")
+                .pattern("RNR")
+                .pattern("NBN")
+                .pattern("RNR")
+                .define('B', Items.WRITABLE_BOOK)
+                .define('R', Matter.VIOLET.getItem().get())
+                .define('N', Items.NETHER_STAR)
+                .save(consumer, rl("knowledge_sharing_book"));
+
+        ShapedRecipeBuilder.shaped(ModItems.PERSONAL_LINK.get())
+                .unlockedBy("has_item", has(ModItems.ENERGY_LINK.get()))
+                .group(EXDataGen.MODID + ":link")
+                .pattern("RBR")
+                .pattern("BCB")
+                .pattern("RBR")
+                .define('B', ModItems.ENERGY_LINK.get())
+                .define('R', Matter.RED.getItem().get())
+                .define('C', PEBlocks.CONDENSER_MK2)
+                .save(consumer, rl("personal_link"));
+
+        ShapedRecipeBuilder.shaped(ModItems.REFINED_LINK.get())
+                .unlockedBy("has_item", has(ModItems.PERSONAL_LINK.get()))
+                .group(EXDataGen.MODID + ":link")
+                .pattern("LLL")
+                .pattern("LLL")
+                .pattern("LLL")
+                .define('L', ModItems.PERSONAL_LINK.get())
+                .save(consumer, rl("refined_link"));
+
+        ShapedRecipeBuilder.shaped(ModItems.STONE_TABLE.get())
+                .unlockedBy("has_item", has(PEItems.PHILOSOPHERS_STONE))
+                .group(EXDataGen.MODID + ":stone_table")
+                .pattern("BBB")
+                .pattern("BPB")
+                .pattern("BBB")
+                .define('B', Items.STONE_BRICKS)
+                .define('P', PEItems.PHILOSOPHERS_STONE)
+                .save(consumer, rl("stone_table_1"));
+
+        ShapedRecipeBuilder.shaped(PEItems.TOME_OF_KNOWLEDGE)
+                .unlockedBy("has_item", has(ModItems.KNOWLEDGE_SHARING_BOOK.get()))
+                .group(EXDataGen.MODID + ":stone_table")
+                .pattern("BBB")
+                .pattern("BSB")
+                .pattern("BBB")
+                .define('B', ModItems.KNOWLEDGE_SHARING_BOOK.get())
+                .define('S', ModItems.FINAL_STAR_SHARD.get())
+                .save(consumer, rl("tome_of_knowledge"));
+
+        ShapedRecipeBuilder.shaped(ModItems.COLLECTOR.get(Matter.BASIC).get())
+                .unlockedBy("has_item", has(PEBlocks.AETERNALIS_FUEL))
+                .group(EXDataGen.MODID + ":matter/basic")
+                .pattern("GSG")
+                .pattern("GAG")
+                .pattern("GFG")
+                .define('G', Items.GLOWSTONE)
+                .define('S', Tags.Items.GLASS)
+                .define('A', PEBlocks.AETERNALIS_FUEL)
+                .define('F', Items.FURNACE)
+                .save(consumer, rl("collector/basic"));
+        ShapelessRecipeBuilder.shapeless(ModItems.COLLECTOR.get(Matter.BASIC).get())
+                .unlockedBy("has_item", has(PEBlocks.COLLECTOR))
+                .group(EXDataGen.MODID + ":matter/basic")
+                .requires(PEBlocks.COLLECTOR)
+                .save(consumer, rl("collector/basic_2"));
+        ShapelessRecipeBuilder.shapeless(ModItems.COLLECTOR.get(Matter.DARK).get())
+                .unlockedBy("has_item", has(PEBlocks.COLLECTOR_MK2))
+                .group(EXDataGen.MODID + ":matter/dark")
+                .requires(PEBlocks.COLLECTOR_MK2)
+                .save(consumer, rl("collector/dark_2"));
+        ShapelessRecipeBuilder.shapeless(ModItems.COLLECTOR.get(Matter.RED).get())
+                .unlockedBy("has_item", has(PEBlocks.COLLECTOR_MK3))
+                .group(EXDataGen.MODID + ":matter/red")
+                .requires(PEBlocks.COLLECTOR_MK3)
+                .save(consumer, rl("collector/red_2"));
+
+        ShapedRecipeBuilder.shaped(ModItems.RELAY.get(Matter.BASIC).get())
+                .unlockedBy("has_item", has(PEBlocks.AETERNALIS_FUEL))
+                .group(EXDataGen.MODID + ":matter/basic")
+                .pattern("OSO")
+                .pattern("OAO")
+                .pattern("OOO")
+                .define('O', Items.OBSIDIAN)
+                .define('S', Tags.Items.GLASS)
+                .define('A', PEBlocks.AETERNALIS_FUEL)
+                .save(consumer, rl("relay/basic"));
+        ShapelessRecipeBuilder.shapeless(ModItems.RELAY.get(Matter.BASIC).get())
+                .unlockedBy("has_item", has(PEBlocks.RELAY))
+                .group(EXDataGen.MODID + ":matter/basic")
+                .requires(PEBlocks.RELAY)
+                .save(consumer, rl("relay/basic_2"));
+        ShapelessRecipeBuilder.shapeless(ModItems.RELAY.get(Matter.DARK).get())
+                .unlockedBy("has_item", has(PEBlocks.RELAY_MK2))
+                .group(EXDataGen.MODID + ":matter/dark")
+                .requires(PEBlocks.RELAY_MK2)
+                .save(consumer, rl("relay/dark_2"));
+        ShapelessRecipeBuilder.shapeless(ModItems.RELAY.get(Matter.RED).get())
+                .unlockedBy("has_item", has(PEBlocks.RELAY_MK3))
+                .group(EXDataGen.MODID + ":matter/red")
+                .requires(PEBlocks.RELAY_MK3)
+                .save(consumer, rl("relay/red_2"));
+
+        buildAlchemyTableRecipes(consumer);
+    }
+
+    private void buildAlchemyTableRecipes(Consumer<FinishedRecipe> consumer) {
         alchemyStep(consumer, Items.CHARCOAL, new ItemStack(Items.COAL));
 
         alchemyChain(consumer,
@@ -248,7 +425,7 @@ class ModRecipeProvider extends RecipeProvider {
             alchemyStep(consumer, items[i-1], new ItemStack(items[i]));
         }
     }
-    
+
     private void alchemyStep(Consumer<FinishedRecipe> consumer, ItemLike in, ItemStack out) {
         String name = "alchemy/" + in.asItem().getRegistryName().getPath() + "_to_" + out.getItem().getRegistryName().getPath();
         ResourceLocation id = rl(name);

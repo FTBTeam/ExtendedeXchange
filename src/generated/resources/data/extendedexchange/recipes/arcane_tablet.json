@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:arcane_tablet",
+  "pattern": [
+    "TWT",
+    "MSM",
+    "TCT"
+  ],
+  "key": {
+    "T": {
+      "item": "extendedexchange:stone_table"
+    },
+    "W": {
+      "item": "minecraft:crafting_table"
+    },
+    "M": {
+      "item": "extendedexchange:magenta_matter"
+    },
+    "S": {
+      "item": "extendedexchange:magnum_star_ein"
+    },
+    "C": {
+      "tag": "forge:chests/wooden"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:arcane_tablet"
+  }
+}

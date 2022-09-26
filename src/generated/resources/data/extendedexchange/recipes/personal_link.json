@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:link",
+  "pattern": [
+    "RBR",
+    "BCB",
+    "RBR"
+  ],
+  "key": {
+    "B": {
+      "item": "extendedexchange:energy_link"
+    },
+    "R": {
+      "item": "projecte:red_matter"
+    },
+    "C": {
+      "item": "projecte:condenser_mk2"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:personal_link"
+  }
+}

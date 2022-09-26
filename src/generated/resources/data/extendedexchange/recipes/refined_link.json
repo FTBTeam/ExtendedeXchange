@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:link",
+  "pattern": [
+    "LLL",
+    "LLL",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "item": "extendedexchange:personal_link"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:refined_link"
+  }
+}

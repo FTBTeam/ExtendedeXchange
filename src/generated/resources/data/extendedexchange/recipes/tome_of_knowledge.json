@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:stone_table",
+  "pattern": [
+    "BBB",
+    "BSB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "extendedexchange:knowledge_sharing_book"
+    },
+    "S": {
+      "item": "extendedexchange:final_star_shard"
+    }
+  },
+  "result": {
+    "item": "projecte:tome"
+  }
+}
