@@ -52,13 +52,13 @@ public class ModItems {
 
     public static final Map<Star, RegistryObject<Item>> MAGNUM_STAR = Util.make(new LinkedHashMap<>(), map -> {
         for (Star star : Star.VALUES) {
-            map.put(star, REGISTRY.register("magnum_star_" + star.name, () -> new MagnumStarItem(star)));
+            map.put(star, REGISTRY.register("magnum_star_" + star.getName(), () -> new MagnumStarItem(star)));
         }
     });
 
     public static final Map<Star, RegistryObject<Item>> COLOSSAL_STAR = Util.make(new LinkedHashMap<>(), map -> {
         for (Star star : Star.VALUES) {
-            map.put(star, REGISTRY.register("colossal_star_" + star.name, () -> new ColossalStarItem(star)));
+            map.put(star, REGISTRY.register("colossal_star_" + star.getName(), () -> new ColossalStarItem(star)));
         }
     });
 

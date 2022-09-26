@@ -1,7 +1,7 @@
 package dev.ftb.extendedexchange.block.entity;
 
-import dev.ftb.extendedexchange.ExtendedExchange;
 import dev.ftb.extendedexchange.block.CollectorBlock;
+import dev.ftb.extendedexchange.util.EXUtils;
 import moze_intel.projecte.api.capabilities.PECapabilities;
 import moze_intel.projecte.api.capabilities.block_entity.IEmcStorage;
 import moze_intel.projecte.gameObjs.block_entities.RelayMK1BlockEntity;
@@ -53,7 +53,7 @@ public class CollectorBlockEntity extends AbstractEMCBlockEntity {
     @NotNull
     private List<IEmcStorage> findValidTargets(Level level) {
         List<IEmcStorage> validTargets = new ArrayList<>(6);
-        for (Direction direction : ExtendedExchange.DIRECTIONS) {
+        for (Direction direction : EXUtils.DIRECTIONS) {
             BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
             if (blockEntity != null) {
                 blockEntity.getCapability(PECapabilities.EMC_STORAGE_CAPABILITY).ifPresent(storage -> {

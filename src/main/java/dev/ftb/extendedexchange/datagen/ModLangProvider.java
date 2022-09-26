@@ -35,8 +35,8 @@ class ModLangProvider extends LanguageProvider {
         addBlock(ModBlocks.ALCHEMY_TABLE, "Alchemy Table");
 
         for (Star star : Star.VALUES) {
-            addItem(ModItems.MAGNUM_STAR.get(star), "Magnum Star " + star.displayName);
-            addItem(ModItems.COLOSSAL_STAR.get(star), "Colossal Star " + star.displayName);
+            addItem(ModItems.MAGNUM_STAR.get(star), "Magnum Star " + star.getDisplayName());
+            addItem(ModItems.COLOSSAL_STAR.get(star), "Colossal Star " + star.getDisplayName());
         }
 
         addItem(ModItems.FINAL_STAR_SHARD, "Final Star Shard");
@@ -59,7 +59,8 @@ class ModLangProvider extends LanguageProvider {
         add("block.extendedexchange.stone_table.learn", "Learn");
         add("block.extendedexchange.stone_table.unlearn", "Unlearn");
 
-        add("item.extendedexchange.final_star.tooltip", "Place a chest next to Pedestal and drop item on top of it to clone it infinitely.");
+        add("item.extendedexchange.final_star.tooltip", "Creative EMC source");
+        add("item.extendedexchange.final_star.pedestal", "Place a chest next to Pedestal and drop item on top of it to clone it infinitely.");
 
         add("gui.stone_table.cant_use", "Can't use this item in Stone Table!");
         add("gui.arcane_tablet.rotate", "Rotate");

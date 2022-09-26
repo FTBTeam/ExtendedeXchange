@@ -14,8 +14,8 @@ class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         for (Star star : Star.VALUES) {
-            singleTexture("magnum_star_" + star.name, mcLoc("item/generated"), "layer0", modLoc("item/magnum_star/" + star.name));
-            singleTexture("colossal_star_" + star.name, mcLoc("item/generated"), "layer0", modLoc("item/colossal_star/" + star.name));
+            singleTexture("magnum_star_" + star.getName(), mcLoc("item/generated"), "layer0", modLoc("item/magnum_star/" + star.getName()));
+            singleTexture("colossal_star_" + star.getName(), mcLoc("item/generated"), "layer0", modLoc("item/colossal_star/" + star.getName()));
         }
 
         for (Matter matter : Matter.VALUES) {

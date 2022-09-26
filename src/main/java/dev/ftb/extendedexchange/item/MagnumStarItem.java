@@ -8,26 +8,18 @@ import moze_intel.projecte.gameObjs.items.IBarHelper;
 import moze_intel.projecte.gameObjs.items.ItemPE;
 import moze_intel.projecte.integration.IntegrationHelper;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 
 import javax.annotation.Nonnull;
 
 public class MagnumStarItem extends ItemPE implements IItemEmcHolder, IBarHelper {
-    public static final long[] STAR_EMC = new long[12];
-
-    static {
-        long emc = 204800000L;
-
-        for (int i = 0; i < STAR_EMC.length; i++) {
-            STAR_EMC[i] = emc;
-            emc *= 4L;
-        }
-    }
-
     public final Star tier;
 
-    public MagnumStarItem(Star t) {
+    public MagnumStarItem(Star tier) {
         super(new Properties().stacksTo(1).tab(ModItems.ItemGroups.CREATIVE_TAB));
-        tier = t;
+
+        this.tier = tier;
+
         addItemCapability(EmcHolderItemCapabilityWrapper::new);
         addItemCapability("curios", IntegrationHelper.CURIO_CAP_SUPPLIER);
     }
@@ -89,6 +81,11 @@ public class MagnumStarItem extends ItemPE implements IItemEmcHolder, IBarHelper
 
     @Override
     public long getMaximumEmc(@Nonnull ItemStack stack) {
-        return STAR_EMC[tier.ordinal()];
+        return tier.getMaxEMC(false);
+    }
+
+    @Override
+    public Rarity getRarity(ItemStack stack) {
+        return tier == Star.OMEGA ? Rarity.EPIC : super.getRarity(stack);
     }
 }

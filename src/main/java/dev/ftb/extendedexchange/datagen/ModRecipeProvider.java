@@ -142,7 +142,7 @@ class ModRecipeProvider extends RecipeProvider {
                         .requires(prevMagnum)
                         .requires(prevMagnum)
                         .requires(prevMagnum)
-                        .save(consumer, rl("magnum_star/" + star.name));
+                        .save(consumer, rl("magnum_star/" + star.getName()));
 
                 ShapelessRecipeBuilder.shapeless(ModItems.COLOSSAL_STAR.get(star).get())
                         .unlockedBy("has_item", has(prevColossal))
@@ -151,7 +151,7 @@ class ModRecipeProvider extends RecipeProvider {
                         .requires(prevColossal)
                         .requires(prevColossal)
                         .requires(prevColossal)
-                        .save(consumer, rl("colossal_star/" + star.name));
+                        .save(consumer, rl("colossal_star/" + star.getName()));
             }
         }
 

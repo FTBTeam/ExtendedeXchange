@@ -1,7 +1,7 @@
 package dev.ftb.extendedexchange.block.entity;
 
-import dev.ftb.extendedexchange.ExtendedExchange;
 import dev.ftb.extendedexchange.block.RelayBlock;
+import dev.ftb.extendedexchange.util.EXUtils;
 import moze_intel.projecte.api.capabilities.PECapabilities;
 import moze_intel.projecte.api.capabilities.block_entity.IEmcStorage;
 import net.minecraft.core.BlockPos;
@@ -33,7 +33,7 @@ public class RelayBlockEntity extends AbstractEMCBlockEntity {
 
                 List<IEmcStorage> validTargets = new ArrayList<>(1);
 
-                for (Direction direction : ExtendedExchange.DIRECTIONS) {
+                for (Direction direction : EXUtils.DIRECTIONS) {
                     BlockEntity tileEntity = level.getBlockEntity(worldPosition.relative(direction));
                     if (tileEntity != null) {
                         tileEntity.getCapability(PECapabilities.EMC_STORAGE_CAPABILITY).ifPresent(storage -> {

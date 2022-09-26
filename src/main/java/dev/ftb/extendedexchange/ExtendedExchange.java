@@ -10,7 +10,6 @@ import dev.ftb.extendedexchange.network.NetworkHandler;
 import dev.ftb.extendedexchange.recipes.ModRecipeSerializers;
 import dev.ftb.extendedexchange.recipes.ModRecipeTypes;
 import dev.ftb.extendedexchange.recipes.RecipeCache;
-import net.minecraft.core.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
@@ -23,8 +22,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(ExtendedExchange.MOD_ID)
 public class ExtendedExchange {
     public static final String MOD_ID = "extendedexchange";
-
-    public static final Direction[] DIRECTIONS = Direction.values();
 
     public ExtendedExchange() {
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientSetup::initEarly);

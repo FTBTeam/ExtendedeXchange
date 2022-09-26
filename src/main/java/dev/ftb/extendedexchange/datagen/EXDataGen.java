@@ -18,9 +18,9 @@ public class EXDataGen {
 
         if (event.includeClient()) {
             gen.addProvider(new ModLangProvider(gen, MODID, "en_us"));
-            gen.addProvider(new ModBlockStateProvider(gen, MODID, event.getExistingFileHelper()));
-            gen.addProvider(new ModBlockModelProvider(gen, MODID, event.getExistingFileHelper()));
-            gen.addProvider(new ModItemModelProvider(gen, MODID, event.getExistingFileHelper()));
+            gen.addProvider(new ModBlockStateProvider(gen, MODID, efh));
+            gen.addProvider(new ModBlockModelProvider(gen, MODID, efh));
+            gen.addProvider(new ModItemModelProvider(gen, MODID, efh));
         }
 
         if (event.includeServer()) {

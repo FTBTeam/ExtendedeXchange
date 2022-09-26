@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "extendedexchange:magnum_star_ein",
+    "extendedexchange:magnum_star_zwei",
+    "extendedexchange:magnum_star_drei",
+    "extendedexchange:magnum_star_vier",
+    "extendedexchange:magnum_star_sphere",
+    "extendedexchange:magnum_star_omega",
+    "extendedexchange:colossal_star_ein",
+    "extendedexchange:colossal_star_zwei",
+    "extendedexchange:colossal_star_drei",
+    "extendedexchange:colossal_star_vier",
+    "extendedexchange:colossal_star_sphere",
+    "extendedexchange:colossal_star_omega"
+  ]
+}
