@@ -59,13 +59,17 @@ class ModLangProvider extends LanguageProvider {
         add("block.extendedexchange.stone_table.learn", "Learn");
         add("block.extendedexchange.stone_table.unlearn", "Unlearn");
 
-        add("item.extendedexchange.final_star.tooltip", "Creative EMC source");
-        add("item.extendedexchange.final_star.pedestal", "Place a chest next to Pedestal and drop item on top of it to clone it infinitely.");
+        add("item.extendedexchange.final_star.tooltip", "Infinite EMC source");
+        add("item.extendedexchange.final_star.pedestal", "Place a chest next to Pedestal and drop an item on top of it to clone it infinitely.");
 
-        add("gui.stone_table.cant_use", "Can't use this item in Stone Table!");
-        add("gui.arcane_tablet.rotate", "Rotate");
-        add("gui.arcane_tablet.balance", "Balance / Spread");
-        add("gui.arcane_tablet.clear", "Clear");
+        add("item.extendedexchange.knowledge_sharing_book.tooltip.1", "Sneak + Right-Click to set yourself as owner");
+        add("item.extendedexchange.knowledge_sharing_book.tooltip.2", "Right-Click to copy knowledge from the book's owner to yourself");
+        add("item.extendedexchange.knowledge_sharing_book.learned", "Knowledge copied! %d item(s) learned");
+
+        add("gui.extendedexchange.stone_table.cant_use", "Can't use this item in Stone Table!");
+        add("gui.extendedexchange.arcane_tablet.rotate", "Rotate");
+        add("gui.extendedexchange.arcane_tablet.balance", "Balance / Spread");
+        add("gui.extendedexchange.arcane_tablet.clear", "Clear");
 
         /*
         extendedexchange=Project EX Common
