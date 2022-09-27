@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/fading",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:fading_relay"
+    },
+    "D": {
+      "item": "extendedexchange:fading_collector"
+    },
+    "R": {
+      "item": "extendedexchange:white_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:fading_power_flower"
+  }
+}

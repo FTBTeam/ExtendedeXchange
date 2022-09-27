@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/cyan",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:cyan_relay"
+    },
+    "D": {
+      "item": "extendedexchange:cyan_collector"
+    },
+    "R": {
+      "item": "extendedexchange:blue_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:cyan_power_flower"
+  }
+}

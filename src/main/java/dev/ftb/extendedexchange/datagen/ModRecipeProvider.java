@@ -107,6 +107,17 @@ class ModRecipeProvider extends RecipeProvider {
                         .requires(ModItems.RELAY.get(prev).get())
                         .requires(matterItem)
                         .save(consumer, rl("relay/" + matter.name));
+
+                ShapedRecipeBuilder.shaped(powerFlower)
+                        .unlockedBy("has_item", has(matterItem))
+                        .group(EXDataGen.MODID + ":matter/" + matter.name)
+                        .pattern("ADA")
+                        .pattern("ARA")
+                        .pattern("AAA")
+                        .define('A', relay)
+                        .define('D', collector)
+                        .define('R', ModItems.POWER_FLOWER.get(prev).get())
+                        .save(consumer, rl("power_flower/" + matter.name + "_upgrade"));
             }
 
             ShapedRecipeBuilder.shaped(compressedCollector)

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/final",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:final_relay"
+    },
+    "D": {
+      "item": "extendedexchange:final_collector"
+    },
+    "R": {
+      "item": "extendedexchange:fading_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:final_power_flower"
+  }
+}

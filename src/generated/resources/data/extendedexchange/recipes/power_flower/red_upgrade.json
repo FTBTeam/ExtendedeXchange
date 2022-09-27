@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/red",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:red_relay"
+    },
+    "D": {
+      "item": "extendedexchange:red_collector"
+    },
+    "R": {
+      "item": "extendedexchange:dark_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:red_power_flower"
+  }
+}

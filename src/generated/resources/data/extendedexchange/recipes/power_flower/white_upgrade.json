@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/white",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:white_relay"
+    },
+    "D": {
+      "item": "extendedexchange:white_collector"
+    },
+    "R": {
+      "item": "extendedexchange:orange_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:white_power_flower"
+  }
+}

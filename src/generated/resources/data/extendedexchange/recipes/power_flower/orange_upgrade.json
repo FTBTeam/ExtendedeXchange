@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/orange",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:orange_relay"
+    },
+    "D": {
+      "item": "extendedexchange:orange_collector"
+    },
+    "R": {
+      "item": "extendedexchange:yellow_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:orange_power_flower"
+  }
+}

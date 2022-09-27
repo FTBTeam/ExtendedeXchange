@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/blue",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:blue_relay"
+    },
+    "D": {
+      "item": "extendedexchange:blue_collector"
+    },
+    "R": {
+      "item": "extendedexchange:violet_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:blue_power_flower"
+  }
+}

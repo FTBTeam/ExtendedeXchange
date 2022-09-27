@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/dark",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:dark_relay"
+    },
+    "D": {
+      "item": "extendedexchange:dark_collector"
+    },
+    "R": {
+      "item": "extendedexchange:basic_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:dark_power_flower"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "extendedexchange:matter/magenta",
+  "pattern": [
+    "ADA",
+    "ARA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "extendedexchange:magenta_relay"
+    },
+    "D": {
+      "item": "extendedexchange:magenta_collector"
+    },
+    "R": {
+      "item": "extendedexchange:red_power_flower"
+    }
+  },
+  "result": {
+    "item": "extendedexchange:magenta_power_flower"
+  }
+}
