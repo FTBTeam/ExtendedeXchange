@@ -199,7 +199,7 @@ class ModRecipeProvider extends RecipeProvider {
                 .pattern("TCT")
                 .define('T', ModItems.STONE_TABLE.get())
                 .define('W', Items.CRAFTING_TABLE)
-                .define('M', ModItems.MATTER.get(Matter.MAGENTA).get())
+                .define('M', PEItems.TRANSMUTATION_TABLET)
                 .define('S', ModItems.MAGNUM_STAR.get(Star.EIN).get())
                 .define('C', Tags.Items.CHESTS_WOODEN)
                 .save(consumer, rl("arcane_tablet"));
