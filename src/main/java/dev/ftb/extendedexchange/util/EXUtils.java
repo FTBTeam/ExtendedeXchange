@@ -37,7 +37,7 @@ public class EXUtils {
             return knowledgeProvider.addKnowledge(stack) ? KnowledgeAddResult.ADDED : KnowledgeAddResult.NOT_ADDED;
         }
 
-        return KnowledgeAddResult.ADDED;
+        return KnowledgeAddResult.ALREADY_KNOWN;
     }
 
     public enum KnowledgeAddResult {

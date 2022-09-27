@@ -108,10 +108,12 @@ jar {
 }
 
 def relType = "release"
-if (ENV.TAG.contains("alpha")) {
-	relType = "alpha"
-} else if (ENV.TAG.contains("beta")) {
-	relType = "beta"
+if (ENV.TAG != null) {
+	if (ENV.TAG.contains("alpha")) {
+		relType = "alpha"
+	} else if (ENV.TAG.contains("beta")) {
+		relType = "beta"
+	}
 }
 if (ENV.CURSEFORGE_KEY) {
 	curseforge {

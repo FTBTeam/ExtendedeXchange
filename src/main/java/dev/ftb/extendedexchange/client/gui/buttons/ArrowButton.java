@@ -3,7 +3,10 @@ package dev.ftb.extendedexchange.client.gui.buttons;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.extendedexchange.client.gui.AbstractEXScreen;
+import net.minecraft.network.chat.Component;
 import org.lwjgl.opengl.GL11;
+
+import java.util.List;
 
 public class ArrowButton extends EXButton {
     public ArrowButton(int x, int y, OnPress onPress) {

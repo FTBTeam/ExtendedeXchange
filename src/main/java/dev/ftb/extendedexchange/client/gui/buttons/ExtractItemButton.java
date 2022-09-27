@@ -1,6 +1,5 @@
 package dev.ftb.extendedexchange.client.gui.buttons;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.ftb.extendedexchange.client.gui.EMCFormat;
@@ -11,10 +10,12 @@ import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import org.lwjgl.opengl.GL11;
 
-import java.math.BigInteger;
+import java.util.List;
 
 public class ExtractItemButton extends EXButton {
     private final IKnowledgeProvider provider;
@@ -72,5 +73,10 @@ public class ExtractItemButton extends EXButton {
             label = Double.toString(((int) (d * 10D)) / 10D);
         }
         return label;
+    }
+
+    @Override
+    public void addTooltip(double mouseX, double mouseY, List<Component> curTip, boolean shift) {
+        curTip.addAll(item.getTooltipLines(Minecraft.getInstance().player, Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.Default.ADVANCED : TooltipFlag.Default.NORMAL));
     }
 }

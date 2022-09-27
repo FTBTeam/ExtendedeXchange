@@ -13,6 +13,7 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -27,6 +28,7 @@ public class JEIIntegration implements IModPlugin {
     private static final ResourceLocation ID = new ResourceLocation(ExtendedExchange.MOD_ID, "default");
 
     static IJeiHelpers jeiHelpers;
+    static IJeiRuntime runtime;
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -59,5 +61,14 @@ public class JEIIntegration implements IModPlugin {
     private <C extends Container, T extends Recipe<C>> void addRecipeType(IRecipeRegistration registration, RecipeType<T> type, mezz.jei.api.recipe.RecipeType<T> recipeType) {
         List<T> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(type);
         registration.addRecipes(recipeType, ImmutableList.copyOf(recipes));
+    }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        runtime = jeiRuntime;
+    }
+
+    public static void setFilterText(String text) {
+        runtime.getIngredientFilter().setFilterText(text);
     }
 }
