@@ -12,21 +12,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public abstract class AbstractEXScreen<C extends AbstractEXMenu<T>, T extends AbstractEMCBlockEntity> extends AbstractContainerScreen<C> {
-    public static final ResourceLocation TEXTURE_MK1 = new ResourceLocation(ExtendedExchange.MOD_ID, "textures/gui/personal_link.png");
-    public static final ResourceLocation TEXTURE_MK2 = new ResourceLocation(ExtendedExchange.MOD_ID, "textures/gui/refined_link.png");
-    public static final ResourceLocation TEXTURE_MK3 = new ResourceLocation(ExtendedExchange.MOD_ID, "textures/gui/compressed_refined_link.png");
-
     public AbstractEXScreen(C menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+    }
+
+    public static void bindTexture(ResourceLocation guiTexture) {
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        RenderSystem.setShaderTexture(0, guiTexture);
+        RenderSystem.enableTexture();
     }
 
     final void bindGuiTexture() {
         ResourceLocation guiTexture = getGuiTexture();
         if (guiTexture != null) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-            RenderSystem.setShaderTexture(0, guiTexture);
-            RenderSystem.enableTexture();
+            bindTexture(guiTexture);
         }
     }
 
@@ -46,9 +46,5 @@ public abstract class AbstractEXScreen<C extends AbstractEXMenu<T>, T extends Ab
         int xStart = (width - imageWidth) / 2;
         int yStart = (height - imageHeight) / 2;
         blit(poseStack, xStart, yStart, 0, 0, imageWidth, imageHeight);
-    }
-
-    protected int getEMCLabelYPos() {
-        return 73;
     }
 }

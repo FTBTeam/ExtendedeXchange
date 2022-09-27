@@ -16,7 +16,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class NetworkHandler {
-    private static final String PROTOCOL_VERSION = "1";  // bump for any incompatible protocol changes
+    private static final String PROTOCOL_VERSION = "2";  // bump for any incompatible protocol changes
     private static final SimpleChannel NETWORK = NetworkRegistry.ChannelBuilder
             .named(new ResourceLocation(ExtendedExchange.MOD_ID, "main_channel"))
             .clientAcceptedVersions(PROTOCOL_VERSION::equals)
@@ -32,6 +32,7 @@ public class NetworkHandler {
     public static void init() {
         registerMessage(PacketJEIGhost.class, PacketJEIGhost::toBytes, PacketJEIGhost::new, PacketJEIGhost::handle, NetworkDirection.PLAY_TO_SERVER);
         registerMessage(PacketClearRecipeCache.class, PacketClearRecipeCache::toBytes, PacketClearRecipeCache::new, PacketClearRecipeCache::handle, NetworkDirection.PLAY_TO_CLIENT);
+        registerMessage(PacketGuiButton.class, PacketGuiButton::toBytes, PacketGuiButton::new, PacketGuiButton::handle, NetworkDirection.PLAY_TO_SERVER);
     }
 
     private static <MSG> void registerMessage(Class<MSG> messageType, BiConsumer<MSG, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer, NetworkDirection direction) {

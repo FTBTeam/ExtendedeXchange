@@ -1,6 +1,6 @@
 package dev.ftb.extendedexchange.block;
 
-import moze_intel.projecte.gameObjs.container.TransmutationContainer;
+import dev.ftb.extendedexchange.menu.StoneTableMenu;
 import moze_intel.projecte.utils.text.PELang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -73,8 +73,8 @@ public class StoneTableBlock extends Block {
     @Nonnull
     @Deprecated
     public InteractionResult use(@Nonnull BlockState state, Level world, @Nonnull BlockPos pos, @Nonnull Player player, @Nonnull InteractionHand hand, @Nonnull BlockHitResult rtr) {
-        if (!world.isClientSide) {
-            NetworkHooks.openGui((ServerPlayer) player, new ContainerProvider(), (b) -> b.writeBoolean(false));
+        if (player instanceof ServerPlayer serverPlayer) {
+            NetworkHooks.openGui(serverPlayer, new ContainerProvider(pos), pos);
         }
 
         return InteractionResult.SUCCESS;
@@ -93,19 +93,16 @@ public class StoneTableBlock extends Block {
         return RenderShape.MODEL;
     }
 
-    private static class ContainerProvider implements MenuProvider {
-        private ContainerProvider() {
-        }
-
+    private record ContainerProvider(BlockPos pos) implements MenuProvider {
         @Override
         public AbstractContainerMenu createMenu(int windowId, @Nonnull Inventory playerInventory, @Nonnull Player player) {
-            return new TransmutationContainer(windowId, playerInventory);
+            return new StoneTableMenu(windowId, playerInventory, pos);
         }
 
         @Override
         @Nonnull
         public Component getDisplayName() {
-            return PELang.TRANSMUTATION_TRANSMUTE.translate();
+            return TextComponent.EMPTY;
         }
     }
 }

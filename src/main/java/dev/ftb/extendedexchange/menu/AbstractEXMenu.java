@@ -13,13 +13,15 @@ import javax.annotation.Nonnull;
 
 public abstract class AbstractEXMenu<T extends BlockEntity> extends AbstractContainerMenu {
     private final T blockEntity;
+    private final BlockPos blockPos;
     int playerSlotsStart;
 
-    public AbstractEXMenu(MenuType<?> type, int windowId, Inventory invPlayer, BlockPos tilePos) {
+    public AbstractEXMenu(MenuType<?> type, int windowId, Inventory invPlayer, BlockPos blockPos) {
         super(type, windowId);
+        this.blockPos = blockPos;
 
-        if (tilePos != null) {
-            BlockEntity be0 = invPlayer.player.level.getBlockEntity(tilePos);
+        if (blockPos != null) {
+            BlockEntity be0 = invPlayer.player.level.getBlockEntity(blockPos);
             if (be0 != null && blockEntityClass().isAssignableFrom(be0.getClass())) {
                 //noinspection unchecked
                 blockEntity = (T) be0;  // should be safe: we have done an isAssignableFrom()
@@ -33,7 +35,7 @@ public abstract class AbstractEXMenu<T extends BlockEntity> extends AbstractCont
 
     @Override
     public boolean stillValid(Player player) {
-        return !blockEntity.isRemoved() && player.distanceToSqr(Vec3.atCenterOf(blockEntity.getBlockPos())) < 64.0;
+        return (blockEntity == null || !blockEntity.isRemoved()) && player.distanceToSqr(Vec3.atCenterOf(blockPos)) < 64.0;
     }
 
     @Nonnull

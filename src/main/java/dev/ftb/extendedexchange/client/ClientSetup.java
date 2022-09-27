@@ -1,10 +1,8 @@
 package dev.ftb.extendedexchange.client;
 
-import dev.ftb.extendedexchange.client.gui.AlchemyTableScreen;
-import dev.ftb.extendedexchange.client.gui.CompressedRefinedLinkScreen;
-import dev.ftb.extendedexchange.client.gui.PersonalLinkScreen;
-import dev.ftb.extendedexchange.client.gui.RefinedLinkScreen;
+import dev.ftb.extendedexchange.client.gui.*;
 import dev.ftb.extendedexchange.menu.ModMenuTypes;
+import dev.ftb.extendedexchange.menu.StoneTableMenu;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -29,5 +27,6 @@ public class ClientSetup {
         MenuScreens.register(ModMenuTypes.REFINED_LINK.get(), RefinedLinkScreen::new);
         MenuScreens.register(ModMenuTypes.COMPRESSED_REFINED_LINK.get(), CompressedRefinedLinkScreen::new);
         MenuScreens.register(ModMenuTypes.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
+        MenuScreens.register(ModMenuTypes.STONE_TABLE.get(), StoneTableScreen::new);
     }
 }

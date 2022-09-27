@@ -20,6 +20,8 @@ public class ModMenuTypes {
             = register("compressed_refined_link", CompressedRefinedLinkMenu::new);
     public static final RegistryObject<MenuType<AlchemyTableMenu>> ALCHEMY_TABLE
             = register("alchemy_table", AlchemyTableMenu::new);
+    public static final RegistryObject<MenuType<StoneTableMenu>> STONE_TABLE
+            = register("stone_table", StoneTableMenu::new);
 
     private static <C extends AbstractContainerMenu, T extends MenuType<C>> RegistryObject<T> register(String name, IContainerFactory<? extends C> f) {
         //noinspection unchecked
