@@ -24,7 +24,7 @@ public class EXUtils {
     }
 
     public static KnowledgeAddResult addKnowledge(Player player, IKnowledgeProvider knowledgeProvider, ItemStack stack) {
-        if (stack.isEmpty()) {
+        if (stack.isEmpty() || !ProjectEAPI.getEMCProxy().hasValue(stack)) {
             return KnowledgeAddResult.NOT_ADDED;
         }
 
@@ -38,6 +38,10 @@ public class EXUtils {
         }
 
         return KnowledgeAddResult.ALREADY_KNOWN;
+    }
+
+    public static boolean playerHasKnowledge(Player player, ItemStack stack) {
+        return ProjectEAPI.getTransmutationProxy().getKnowledgeProviderFor(player.getUUID()).hasKnowledge(stack);
     }
 
     public enum KnowledgeAddResult {

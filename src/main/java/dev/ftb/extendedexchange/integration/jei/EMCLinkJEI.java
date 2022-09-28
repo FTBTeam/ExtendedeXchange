@@ -1,10 +1,12 @@
 package dev.ftb.extendedexchange.integration.jei;
 
 import com.google.common.collect.ImmutableList;
+import dev.ftb.extendedexchange.client.ClientUtils;
 import dev.ftb.extendedexchange.client.gui.AbstractEXScreen;
 import dev.ftb.extendedexchange.inventory.FilterSlot;
 import dev.ftb.extendedexchange.network.NetworkHandler;
 import dev.ftb.extendedexchange.network.PacketJEIGhost;
+import dev.ftb.extendedexchange.util.EXUtils;
 import mezz.jei.api.gui.handlers.IGhostIngredientHandler;
 import moze_intel.projecte.api.ProjectEAPI;
 import net.minecraft.client.renderer.Rect2i;
@@ -18,7 +20,10 @@ public class EMCLinkJEI implements IGhostIngredientHandler<AbstractEXScreen> {
     @Override
     public <I> List<Target<I>> getTargets(AbstractEXScreen gui, I ingredient, boolean doStart) {
         ImmutableList.Builder<Target<I>> builder = ImmutableList.builder();
-        if (ingredient instanceof ItemStack stack && ProjectEAPI.getEMCProxy().hasValue(stack)) {
+        if (ingredient instanceof ItemStack stack
+                && ProjectEAPI.getEMCProxy().hasValue(stack)
+                && EXUtils.playerHasKnowledge(ClientUtils.getClientPlayer(), stack))
+        {
             NonNullList<Slot> slots = gui.getMenu().slots;
             // indexed for loop needed to get raw container slot index
             for (int i = 0; i < slots.size(); i++) {

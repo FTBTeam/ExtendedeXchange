@@ -1,6 +1,8 @@
 package dev.ftb.extendedexchange.network;
 
 import dev.ftb.extendedexchange.inventory.FilterSlot;
+import dev.ftb.extendedexchange.util.EXUtils;
+import moze_intel.projecte.api.ProjectEAPI;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +37,10 @@ public class PacketJEIGhost {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null && slotIndex >= 0 && slotIndex < player.containerMenu.slots.size()
-                    && player.containerMenu.getSlot(slotIndex) instanceof FilterSlot f) {
+                    && player.containerMenu.getSlot(slotIndex) instanceof FilterSlot f
+                    && EXUtils.playerHasKnowledge(player, stack)
+            )
+            {
                 f.set(stack);
             }
         });
