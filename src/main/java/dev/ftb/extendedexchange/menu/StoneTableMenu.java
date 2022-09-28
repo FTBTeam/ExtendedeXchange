@@ -1,6 +1,5 @@
 package dev.ftb.extendedexchange.menu;
 
-import dev.ftb.extendedexchange.EXTags;
 import dev.ftb.extendedexchange.config.ConfigHelper;
 import moze_intel.projecte.api.capabilities.item.IItemEmcHolder;
 import net.minecraft.core.BlockPos;
@@ -21,9 +20,6 @@ public class StoneTableMenu extends AbstractTableMenu {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        if (stack.isEmpty()) return false;
-        return stack.getItem() instanceof IItemEmcHolder
-                || !ConfigHelper.server().general.enableStoneTableWhitelist.get()
-                || stack.is(EXTags.Items.STONE_TABLE_WHITELIST);
+        return !stack.isEmpty() && (stack.getItem() instanceof IItemEmcHolder || ConfigHelper.isStoneTableWhitelisted(stack));
     }
 }

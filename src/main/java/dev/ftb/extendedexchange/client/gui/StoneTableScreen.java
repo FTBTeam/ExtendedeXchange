@@ -4,12 +4,19 @@ import dev.ftb.extendedexchange.ExtendedExchange;
 import dev.ftb.extendedexchange.client.gui.buttons.ArrowButton;
 import dev.ftb.extendedexchange.client.gui.buttons.ExtractItemButton;
 import dev.ftb.extendedexchange.client.gui.buttons.HighlightButton;
+import dev.ftb.extendedexchange.config.ConfigHelper;
 import dev.ftb.extendedexchange.menu.StoneTableMenu;
+import moze_intel.projecte.api.ProjectEAPI;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+
+import java.util.List;
 
 public class StoneTableScreen extends AbstractTableScreen<StoneTableMenu> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ExtendedExchange.MOD_ID, "textures/gui/stone_table.png");
@@ -54,5 +61,14 @@ public class StoneTableScreen extends AbstractTableScreen<StoneTableMenu> {
     @Override
     protected ResourceLocation getGuiTexture() {
         return TEXTURE;
+    }
+
+    @Override
+    public List<Component> getTooltipFromItem(ItemStack itemStack) {
+        List<Component> list = super.getTooltipFromItem(itemStack);
+        if (!ConfigHelper.isStoneTableWhitelisted(itemStack) && ProjectEAPI.getEMCProxy().hasValue(itemStack)) {
+            list.add(new TranslatableComponent("gui.extendedexchange.stone_table.cant_use").withStyle(ChatFormatting.RED));
+        }
+        return list;
     }
 }

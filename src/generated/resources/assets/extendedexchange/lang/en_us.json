@@ -54,7 +54,7 @@
   "block.extendedexchange.relay.tooltip": "Server TPS friendly. Transfers EMC only once a second.",
   "block.extendedexchange.stone_table": "Stone Transmutation Table",
   "block.extendedexchange.stone_table.learn": "Learn",
-  "block.extendedexchange.stone_table.tooltip": "An alternative to the ProjectE Transmutation Tablet",
+  "block.extendedexchange.stone_table.tooltip": "An alternative to ProjectE's Transmutation Table",
   "block.extendedexchange.stone_table.unlearn": "Unlearn",
   "block.extendedexchange.violet_collector": "Violet Energy Collector [MK7]",
   "block.extendedexchange.violet_power_flower": "Violet Power Flower [MK7]",
