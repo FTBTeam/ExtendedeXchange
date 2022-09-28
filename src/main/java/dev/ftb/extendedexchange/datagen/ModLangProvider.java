@@ -73,6 +73,10 @@ class ModLangProvider extends LanguageProvider {
         add("gui.extendedexchange.arcane_tablet.balance", "Balance / Spread");
         add("gui.extendedexchange.arcane_tablet.clear", "Clear");
 
+        add("gui.extendedexchange.link.tooltip.1", "Left-click: Extract stack");
+        add("gui.extendedexchange.link.tooltip.2", "Right-click: Extract item");
+        add("gui.extendedexchange.link.tooltip.3", "Shift + Right-click: Clear slot");
+
         add("extendedexchange.general.search_type", "Search Type");
         add("extendedexchange.general.search_type.normal", "Normal");
         add("extendedexchange.general.search_type.autoselected", "Auto-selected");
