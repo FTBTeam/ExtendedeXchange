@@ -45,9 +45,9 @@ class ModLangProvider extends LanguageProvider {
         addItem(ModItems.ARCANE_TABLET, "Arcane Transmutation Tablet");
 
         add("block.extendedexchange.energy_link.tooltip", "You can use this block to add EMC to your Transmutation Table using Collectors.");
-        add("block.extendedexchange.personal_link.tooltip", "Same as Basic Energy EMC Link, but also allows to import and export items.");
-        add("block.extendedexchange.refined_link.tooltip", "Same as Personal EMC Link, but has 1 input slot and 9 output slots. Designed to be used with Refined Storage-like systems. It also learns items from input slots.");
-        add("block.extendedexchange.compressed_refined_link.tooltip", "Same as Refined EMC Link, but has 54 output slots.");
+        add("block.extendedexchange.personal_link.tooltip", "Like the Basic Energy EMC Link, but also allows to import and export items.");
+        add("block.extendedexchange.refined_link.tooltip", "Like the Personal EMC Link, but has 1 input slot and 9 output slots. Intended as an automated item storage system for mods like Refined Storage or AE2. Learns items from input slots.");
+        add("block.extendedexchange.compressed_refined_link.tooltip", "Like the Refined EMC Link, but has 54 output slots.");
 
         add("block.extendedexchange.collector.tooltip", "Server TPS friendly. Generates EMC only once a second.");
         add("block.extendedexchange.collector.emc_produced", "Produced EMC: %s/s");
@@ -56,8 +56,10 @@ class ModLangProvider extends LanguageProvider {
         add("block.extendedexchange.relay.max_transfer", "Max EMC Transfer: %s/s");
         add("block.extendedexchange.relay.relay_bonus", "Relay Bonus: %s/s");
 
+        add("block.extendedexchange.stone_table.tooltip", "An alternative to ProjectE's Transmutation Table");
         add("block.extendedexchange.stone_table.learn", "Learn");
         add("block.extendedexchange.stone_table.unlearn", "Unlearn");
+        add("gui.extendedexchange.stone_table.cant_use", "Can't use this item in Stone Table!");
 
         add("item.extendedexchange.final_star.tooltip", "Infinite EMC source");
         add("item.extendedexchange.final_star.pedestal", "Place a chest next to Pedestal and drop an item on top of it to clone it infinitely.");
@@ -66,7 +68,7 @@ class ModLangProvider extends LanguageProvider {
         add("item.extendedexchange.knowledge_sharing_book.tooltip.2", "Right-Click to copy knowledge from the book's owner to yourself");
         add("item.extendedexchange.knowledge_sharing_book.learned", "Knowledge copied! %d item(s) learned");
 
-        add("gui.extendedexchange.stone_table.cant_use", "Can't use this item in Stone Table!");
+        add("item.extendedexchange.arcane_tablet.tooltip", "Portable Transmutation Tablet with built-in crafting functionality");
         add("gui.extendedexchange.arcane_tablet.rotate", "Rotate");
         add("gui.extendedexchange.arcane_tablet.balance", "Balance / Spread");
         add("gui.extendedexchange.arcane_tablet.clear", "Clear");
@@ -78,26 +80,12 @@ class ModLangProvider extends LanguageProvider {
         add("extendedexchange.general.search_type.autoselected_jei_sync", "Auto-selected (JEI Sync)");
 
         /*
-        extendedexchange=Project EX Common
         extendedexchange.general.enable_stone_table_whitelist=Enable Stone Table Whitelist
-        extendedexchange.general.stone_table_whitelist=Stone Table Whitelist
         extendedexchange.general.override_emc_formatter=Override EMC Formatter
         extendedexchange.general.blacklist_power_flower_from_watch=Blacklist Power Flower from Watch
         extendedexchange.general.final_star_copy_any_item=Final Star Can Copy Any Item
         extendedexchange.general.final_star_copy_nbt=Final Star Can Copy NBT
         extendedexchange.general.emc_link_max_out=EMC Link Max Item Output
-
-        extendedexchange.tiers.collector_output=Collector Output
-        extendedexchange.tiers.relay_bonus=Relay Bonus
-        extendedexchange.tiers.relay_transfer=Relay Transfer
-
-        extendedexchange_client=Project EX Client
-        extendedexchange.general.emc_screen_position=EMC Screen Position
-        extendedexchange.general.search_type=Search Type
-        extendedexchange.general.search_type.normal=Normal
-        extendedexchange.general.search_type.autoselected=Auto-selected
-        extendedexchange.general.search_type.normal_jei_sync=Normal (JEI Sync)
-        extendedexchange.general.search_type.autoselected_jei_sync=Auto-selected (JEI Sync)
          */
     }
 }

@@ -2,8 +2,10 @@ package dev.ftb.extendedexchange.menu;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultiset;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Multiset;
 import dev.ftb.extendedexchange.util.EXUtils;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import moze_intel.projecte.api.ItemInfo;
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.config.ProjectEConfig;
@@ -31,7 +33,6 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
 
     private final CraftingContainer craftMatrix;
     private final ResultContainer craftResult;
-    public boolean skipRefill = false;
 
     public ArcaneTabletMenu(int windowId, Inventory invPlayer) {
         super(ModMenuTypes.ARCANE_TABLET.get(), windowId, invPlayer, null);
@@ -103,11 +104,9 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        if (index == 0) {
-            Slot slot = slots.get(index);
-
-            if (slot.hasItem()) {
-                ItemStack stack = slot.getItem();
+        if (slots.get(index) instanceof ArcaneTabletResultSlot resultSlot) {
+            if (resultSlot.hasItem()) {
+                ItemStack stack = resultSlot.getItem();
                 ItemStack oldStack = stack.copy();
 
                 if (!moveItemStackTo(stack, playerSlotsStart, playerSlotsStart + 36, true)) {
@@ -115,15 +114,16 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
                 }
 
                 if (stack.isEmpty()) {
-                    slot.set(ItemStack.EMPTY);
+                    resultSlot.set(ItemStack.EMPTY);
                 } else {
-                    slot.setChanged();
+                    resultSlot.setChanged();
                 }
 
                 if (stack.getCount() == oldStack.getCount()) {
                     return ItemStack.EMPTY;
                 }
 
+                resultSlot.onTakeNoRefill(player, stack);
                 player.drop(stack, false);
                 return oldStack;
             }
@@ -134,77 +134,61 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
     }
 
     @Override
-    public void clicked(int slotId, int button, ClickType clickType, Player player) {
-        if (clickType == ClickType.QUICK_MOVE) skipRefill = true;
-        super.clicked(slotId, button, clickType, player);
-        if (clickType == ClickType.QUICK_MOVE) skipRefill = false;
-    }
-
-    @Override
     public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
         return slot.container != craftResult && super.canTakeItemForPickAll(stack, slot);
     }
 
-    public void onRecipeTransfer(ItemStack[][] recipe, boolean transferAll) {
+    public void onRecipeTransfer(Int2ObjectMap<List<ItemStack>> stacksMap, boolean transferAll) {
+        // handles transferring items into the crafting slots via JEI '+' button
         clearCraftingMatrix();
 
-        int max = Math.min(recipe.length, craftMatrix.getContainerSize());
-        transferItems(recipe, max);
-
-        if (transferAll) {
-            for (int i = 0; i < 63; i++) {
-                transferItems(recipe, max);
-            }
+        int repeat = transferAll ? 64 : 1;
+        for (int i = 0; i < repeat; i++) {
+            transferItems(stacksMap);
         }
 
         slotChangedCraftingGrid(this, player.level, player, craftMatrix, craftResult);
         broadcastChanges();
     }
 
-    private void transferItems(ItemStack[][] recipe, int max) {
-        for (int i = 0; i < max; i++) {
-            if (recipe[i] != null && recipe[i].length > 0) {
-                if (transferFromInventory(i, recipe[i])) {
-                    //recipe[i] = null;
-                }
-            }
-        }
+    private void transferItems(Int2ObjectMap<List<ItemStack>> stacksMap) {
+        // try and fulfill the request from player's inventory first
+        stacksMap.forEach(this::transferFromInventory);
 
-        for (int i = 0; i < max; i++) {
-            if (recipe[i] != null && recipe[i].length > 0) {
-                if (transferFromTablet(i, recipe[i])) {
-                    //recipe[i] = null;
-                }
+        // then try and fulfill from the tablet (EMC)
+        boolean syncEMC = false;
+        for (Map.Entry<Integer, List<ItemStack>> entry : stacksMap.int2ObjectEntrySet()) {
+            if (transferFromTablet(entry.getKey(), entry.getValue())) {
+                syncEMC = true;
             }
         }
+        if (syncEMC) provider.syncEmc((ServerPlayer) player);
     }
 
-    private boolean transferFromTablet(int slot, ItemStack[] possibilities) {
-        if (possibilities.length > 1) {
-            Arrays.sort(possibilities, Comparator.comparingLong(o -> ProjectEAPI.getEMCProxy().getValue(o)));
+    private boolean transferFromTablet(int destSlot, List<ItemStack> candidateStacks) {
+        if (candidateStacks.size() > 1) {
+            candidateStacks = candidateStacks.stream().sorted(Comparator.comparingLong(o -> ProjectEAPI.getEMCProxy().getValue(o))).toList();
         }
 
-        for (ItemStack stack : possibilities) {
-            ItemStack stack1 = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(stack)).createStack();
+        for (ItemStack stack : candidateStacks) {
+            ItemStack fixed = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(stack)).createStack();
 
-            if (provider.hasKnowledge(stack1)) {
-                long value = ProjectEAPI.getEMCProxy().getValue(stack1);
-
+            if (provider.hasKnowledge(fixed)) {
+                long value = ProjectEAPI.getEMCProxy().getValue(fixed);
                 BigInteger bigValue = BigInteger.valueOf(value);
                 if (value > 0L && provider.getEmc().compareTo(bigValue) > 0) {
-                    ItemStack slotItem = craftMatrix.getItem(slot);
+                    ItemStack slotItem = craftMatrix.getItem(destSlot);
 
                     if (slotItem.isEmpty()) {
-                        craftMatrix.setItem(slot, stack1);
+                        craftMatrix.setItem(destSlot, fixed);
                     } else if (slotItem.getCount() < slotItem.getMaxStackSize()
-                            && slotItem.getItem() == stack1.getItem()
-                            && Objects.equals(slotItem.getItem().getShareTag(slotItem), stack1.getItem().getShareTag(stack1))) {
+                            && slotItem.getItem() == fixed.getItem()
+                            && Objects.equals(slotItem.getItem().getShareTag(slotItem), fixed.getItem().getShareTag(fixed))) {
                         slotItem.grow(1);
                     } else {
                         continue;
                     }
                     provider.setEmc(provider.getEmc().subtract(bigValue));
-                    if (player instanceof ServerPlayer sp) provider.syncEmc(sp);
                     return true;
                 }
             }
@@ -213,19 +197,19 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
         return false;
     }
 
-    private boolean transferFromInventory(int slot, ItemStack[] possibilities) {
-        for (ItemStack possibility : possibilities) {
-            ItemStack fixedp = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(possibility)).createStack();
+    private boolean transferFromInventory(int destSlot, List<ItemStack> candidateStacks) {
+        for (ItemStack candidate : candidateStacks) {
+            ItemStack candidateFixed = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(candidate)).createStack();
 
             for (int j = 0; j < player.getInventory().getContainerSize(); ++j) {
                 ItemStack stack = player.getInventory().getItem(j);
-                ItemStack stack1 = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(stack)).createStack();
+                ItemStack fixed = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(stack)).createStack();
 
-                if (ItemStack.isSameItemSameTags(fixedp, stack1)) {
-                    ItemStack slotItem = craftMatrix.getItem(slot);
+                if (ItemHandlerHelper.canItemStacksStack(candidateFixed, fixed)) {
+                    ItemStack slotItem = craftMatrix.getItem(destSlot);
 
                     if (slotItem.isEmpty()) {
-                        craftMatrix.setItem(slot, ItemHandlerHelper.copyStackWithSize(stack, 1));
+                        craftMatrix.setItem(destSlot, ItemHandlerHelper.copyStackWithSize(stack, 1));
                     } else if (slotItem.getCount() < slotItem.getMaxStackSize()
                             && slotItem.getItem() == stack.getItem()
                             && Objects.equals(slotItem.getItem().getShareTag(slotItem), stack.getItem().getShareTag(stack))) {
@@ -249,15 +233,27 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
     }
 
     public void clearCraftingMatrix() {
+        boolean syncEmc = false;
         for (int i = 0; i < craftMatrix.getContainerSize(); i++) {
             ItemStack stack = craftMatrix.removeItemNoUpdate(i);
             if (!stack.isEmpty()) {
-                if (ProjectEConfig.server.difficulty.covalenceLoss.get() >= 1D && ProjectEAPI.getEMCProxy().hasValue(stack)) {
-                    EXUtils.addKnowledge(player, provider, ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(stack)).createStack());
+                long value = ProjectEAPI.getEMCProxy().getValue(stack);
+                if (ProjectEConfig.server.difficulty.covalenceLoss.get() >= 1D && value > 0L) {
+                    ItemInfo itemInfo = ItemInfo.fromStack(stack);
+                    EXUtils.KnowledgeAddResult res = EXUtils.addKnowledge(player, provider, ProjectEAPI.getEMCProxy().getPersistentInfo(itemInfo).createStack());
+                    if (res != EXUtils.KnowledgeAddResult.NOT_ADDED) {
+                        provider.setEmc(provider.getEmc().add(BigInteger.valueOf(value * stack.getCount())));
+                        syncEmc = true;
+                        if (res == EXUtils.KnowledgeAddResult.ADDED) {
+                            provider.syncKnowledgeChange((ServerPlayer) player, itemInfo, true);
+                        }
+                        continue;
+                    }
                 }
                 player.getInventory().placeItemBackInInventory(stack, true);
             }
         }
+        if (syncEmc) provider.syncEmc((ServerPlayer) player);
         slotChangedCraftingGrid(this, player.level, player, craftMatrix, craftResult);
     }
 
@@ -383,11 +379,13 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
 //        }
 
         @Override
+        protected void onQuickCraft(ItemStack stack, int amount) {
+            super.onQuickCraft(stack, amount);
+        }
+
+        @Override
         public void onTake(Player player, ItemStack stack) {
-            if (skipRefill) {
-                super.onTake(player, stack);
-                return;
-            }
+            // when extracting result, try to backfill the crafting matrix with items from EMC
 
             ItemStack[] prevItems = new ItemStack[craftMatrix.getContainerSize()];
             for (int i = 0; i < prevItems.length; i++) {
@@ -401,9 +399,15 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
 
             for (int i = 0; i < prevItems.length; i++) {
                 if (!prevItems[i].isEmpty() && craftMatrix.getItem(i).isEmpty()) {
-                    transferFromTablet(i, new ItemStack[]{prevItems[i]});
+                    transferFromTablet(i, ImmutableList.of(prevItems[i]));
                 }
             }
+        }
+
+        public void onTakeNoRefill(Player player, ItemStack stack) {
+            // see ArcaneTable#quickMoveStack()
+            // called when shift-clicking out; just call the super onTake(), to avoid backfilling
+            super.onTake(player, stack);
         }
     }
 
@@ -433,10 +437,8 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
 
         @Override
         public void setItem(int slot, ItemStack stack) {
-            if (!ItemStack.isSameItemSameTags(stack, getItem(slot))) {
-                items.setStackInSlot(slot, stack);
-                slotsChanged(this);
-            }
+            items.setStackInSlot(slot, stack);
+            slotsChanged(this);
         }
 
         @Override

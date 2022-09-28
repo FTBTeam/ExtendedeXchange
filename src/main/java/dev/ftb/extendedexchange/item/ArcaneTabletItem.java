@@ -1,6 +1,7 @@
 package dev.ftb.extendedexchange.item;
 
 import dev.ftb.extendedexchange.menu.ArcaneTabletMenu;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,6 +39,7 @@ public class ArcaneTabletItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(stack, level, list, flag);
+        list.add(new TranslatableComponent("item.extendedexchange.arcane_tablet.tooltip").withStyle(ChatFormatting.GRAY));
     }
 
     private record ContainerProvider(InteractionHand hand) implements MenuProvider {

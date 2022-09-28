@@ -30,14 +30,21 @@ public class NetworkHandler {
     }
 
     public static void init() {
-        registerMessage(PacketJEIGhost.class, PacketJEIGhost::toBytes, PacketJEIGhost::new, PacketJEIGhost::handle,
+        registerMessage(PacketJEIGhost.class,
+                PacketJEIGhost::toBytes, PacketJEIGhost::new, PacketJEIGhost::handle,
                 NetworkDirection.PLAY_TO_SERVER);
-        registerMessage(PacketClearRecipeCache.class, PacketClearRecipeCache::toBytes, PacketClearRecipeCache::new, PacketClearRecipeCache::handle,
+        registerMessage(PacketClearRecipeCache.class,
+                PacketClearRecipeCache::toBytes, PacketClearRecipeCache::new, PacketClearRecipeCache::handle,
                 NetworkDirection.PLAY_TO_CLIENT);
-        registerMessage(PacketGuiButton.class, PacketGuiButton::toBytes, PacketGuiButton::new, PacketGuiButton::handle,
+        registerMessage(PacketGuiButton.class,
+                PacketGuiButton::toBytes, PacketGuiButton::new, PacketGuiButton::handle,
                 NetworkDirection.PLAY_TO_SERVER);
-        registerMessage(PacketNotifyKnowledgeChange.class, PacketNotifyKnowledgeChange::toBytes, PacketNotifyKnowledgeChange::new, PacketNotifyKnowledgeChange::handle,
+        registerMessage(PacketNotifyKnowledgeChange.class,
+                PacketNotifyKnowledgeChange::toBytes, PacketNotifyKnowledgeChange::new, PacketNotifyKnowledgeChange::handle,
                 NetworkDirection.PLAY_TO_CLIENT);
+        registerMessage(PacketArcaneTabletRecipeTransfer.class,
+                PacketArcaneTabletRecipeTransfer::toBytes, PacketArcaneTabletRecipeTransfer::new, PacketArcaneTabletRecipeTransfer::handle,
+                NetworkDirection.PLAY_TO_SERVER);
     }
 
     private static <MSG> void registerMessage(Class<MSG> messageType, BiConsumer<MSG, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, MSG> decoder, BiConsumer<MSG, Supplier<NetworkEvent.Context>> messageConsumer, NetworkDirection direction) {

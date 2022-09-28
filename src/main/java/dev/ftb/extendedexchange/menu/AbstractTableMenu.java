@@ -104,7 +104,7 @@ public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockE
                 ItemStack fixed = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(cursorStack)).createStack();
                 if (isItemValid(fixed)) {
                     tryAddKnowledge(fixed);
-                    long toAdd = (long) (ProjectEAPI.getEMCProxy().getValue(fixed) * fixed.getCount() * ProjectEConfig.server.difficulty.covalenceLoss.get());
+                    long toAdd = (long) (ProjectEAPI.getEMCProxy().getValue(fixed) * cursorStack.getCount() * ProjectEConfig.server.difficulty.covalenceLoss.get());
                     provider.setEmc(provider.getEmc().add(BigInteger.valueOf(toAdd)));
                     provider.syncEmc((ServerPlayer) player);
                     setCarried(ItemStack.EMPTY);

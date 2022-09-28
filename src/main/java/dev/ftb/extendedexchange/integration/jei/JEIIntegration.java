@@ -10,10 +10,7 @@ import dev.ftb.extendedexchange.recipes.ModRecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -60,6 +57,11 @@ public class JEIIntegration implements IModPlugin {
         registration.addGhostIngredientHandler(AbstractEXScreen.class, new EMCLinkJEI());
 
         registration.addGuiContainerHandler(ArcaneTabletScreen.class, new ArcaneTabletGuiArea());
+    }
+
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
+        registration.addUniversalRecipeTransferHandler(new ArcaneTabletTransfer(registration.getTransferHelper()));
     }
 
     private <C extends Container, T extends Recipe<C>> void addRecipeType(IRecipeRegistration registration, RecipeType<T> type, mezz.jei.api.recipe.RecipeType<T> recipeType) {

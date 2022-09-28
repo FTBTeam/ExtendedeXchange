@@ -31,6 +31,7 @@ public class ArcaneTabletScreen extends AbstractTableScreen<ArcaneTabletMenu> {
 
         addRenderableWidget(new HighlightButton(leftPos + 80, topPos + 68).withTag("burn"));
 
+        extractButtons.clear();
         addExtractButton(new ExtractItemButton(leftPos + 80, topPos + 20, menu.getProvider()));
         addExtractButton(new ExtractItemButton(leftPos + 105, topPos + 26, menu.getProvider()));
         addExtractButton(new ExtractItemButton(leftPos + 55, topPos + 26, menu.getProvider()));
@@ -44,9 +45,9 @@ public class ArcaneTabletScreen extends AbstractTableScreen<ArcaneTabletMenu> {
         addExtractButton(new ExtractItemButton(leftPos + 55, topPos + 110, menu.getProvider()));
         addExtractButton(new ExtractItemButton(leftPos + 80, topPos + 116, menu.getProvider()));
 
-        addRenderableWidget(new HighlightButton(leftPos + 8, topPos + 115)
+        addRenderableWidget(new HighlightButton(leftPos + 9, topPos + 116)
                 .withTag("learn").withTooltip(new TranslatableComponent("block.extendedexchange.stone_table.learn")));
-        addRenderableWidget(new HighlightButton(leftPos + 152, topPos + 115)
+        addRenderableWidget(new HighlightButton(leftPos + 153, topPos + 116)
                 .withTag("unlearn").withTooltip(new TranslatableComponent("block.extendedexchange.stone_table.unlearn")));
 
         addRenderableWidget(new HighlightButton(leftPos - 71, topPos + 16, 9, 9)

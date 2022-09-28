@@ -84,8 +84,7 @@ public class StoneTableBlock extends Block {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(stack, level, list, flag);
-        list.add(new TranslatableComponent("block.extendedexchange.personal_link.tooltip").withStyle(ChatFormatting.GRAY));
-        list.add(new TextComponent("WIP!").withStyle(ChatFormatting.RED));
+        list.add(new TranslatableComponent("block.extendedexchange.stone_table.tooltip").withStyle(ChatFormatting.GRAY));
     }
 
     @Override
