@@ -6,6 +6,7 @@ import dev.ftb.extendedexchange.block.ModBlocks;
 import dev.ftb.extendedexchange.client.gui.AbstractEXScreen;
 import dev.ftb.extendedexchange.client.gui.AlchemyTableScreen;
 import dev.ftb.extendedexchange.client.gui.ArcaneTabletScreen;
+import dev.ftb.extendedexchange.item.ModItems;
 import dev.ftb.extendedexchange.recipes.ModRecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -18,7 +19,6 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -48,6 +48,7 @@ public class JEIIntegration implements IModPlugin {
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.ALCHEMY_TABLE.get()), RecipeTypes.ALCHEMY_TABLE);
+        registration.addRecipeCatalyst(new ItemStack(ModItems.ARCANE_TABLET.get()), mezz.jei.api.constants.RecipeTypes.CRAFTING);
     }
 
     @Override
