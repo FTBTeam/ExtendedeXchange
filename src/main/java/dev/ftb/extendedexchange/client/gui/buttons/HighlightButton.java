@@ -9,6 +9,14 @@ public class HighlightButton extends EXButton {
         super(x, y, 14, 14, b -> { });
     }
 
+    public HighlightButton(int x, int y, int w, int h) {
+        super(x, y, w, h, b -> { });
+    }
+
+    public HighlightButton(int x, int y, int w, int h, OnPress onPress) {
+        super(x, y, w, h, onPress);
+    }
+
     @Override
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
         if (isHoveredOrFocused()) {

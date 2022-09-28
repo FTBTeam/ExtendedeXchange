@@ -71,6 +71,12 @@ class ModLangProvider extends LanguageProvider {
         add("gui.extendedexchange.arcane_tablet.balance", "Balance / Spread");
         add("gui.extendedexchange.arcane_tablet.clear", "Clear");
 
+        add("extendedexchange.general.search_type", "Search Type");
+        add("extendedexchange.general.search_type.normal", "Normal");
+        add("extendedexchange.general.search_type.autoselected", "Auto-selected");
+        add("extendedexchange.general.search_type.normal_jei_sync", "Normal (JEI Sync)");
+        add("extendedexchange.general.search_type.autoselected_jei_sync", "Auto-selected (JEI Sync)");
+
         /*
         extendedexchange=Project EX Common
         extendedexchange.general.enable_stone_table_whitelist=Enable Stone Table Whitelist

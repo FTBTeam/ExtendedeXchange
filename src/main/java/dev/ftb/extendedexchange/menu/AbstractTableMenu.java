@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigInteger;
 
 public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockEntity> implements IGuiButtonListener {
-    private final Player player;
-    private final IKnowledgeProvider provider;
+    protected final Player player;
+    protected final IKnowledgeProvider provider;
 
     public AbstractTableMenu(MenuType<?> type, int windowId, Inventory invPlayer, BlockPos pos) {
         super(type, windowId, invPlayer, pos);
@@ -59,7 +59,7 @@ public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockE
         if (item != null && item != Items.AIR) {
             BigInteger availableEMC = provider.getEmc();
             BigInteger emc = BigInteger.valueOf(ProjectEAPI.getEMCProxy().getValue(item));
-            int available = availableEMC.divide(emc).intValue();
+            int available = emc.equals(BigInteger.ZERO) ? 0 : availableEMC.divide(emc).intValue();
             if (available > 0) {
                 ItemStack stack = new ItemStack(item);
                 BigInteger cost = BigInteger.ZERO;
@@ -100,7 +100,7 @@ public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockE
                     provider.setEmc(provider.getEmc().add(BigInteger.valueOf(extracted)));
                     provider.syncEmc((ServerPlayer) player);
                 });
-            } else {
+            } else if (ProjectEAPI.getEMCProxy().hasValue(cursorStack)) {
                 ItemStack fixed = ProjectEAPI.getEMCProxy().getPersistentInfo(ItemInfo.fromStack(cursorStack)).createStack();
                 if (isItemValid(fixed)) {
                     tryAddKnowledge(fixed);

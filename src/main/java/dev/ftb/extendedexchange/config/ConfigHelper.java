@@ -8,4 +8,8 @@ public class ConfigHelper {
     public static ServerConfig server() {
         return ConfigHolder.server;
     }
+
+    public static void setSearchType(SearchType searchType) {
+        client().general.searchType.set(searchType);
+    }
 }

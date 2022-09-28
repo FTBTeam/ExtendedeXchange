@@ -17,4 +17,8 @@ public enum SearchType {
         this.autoselected = autoSelected;
         this.jeiSync = jeiSync;
     }
+
+    public SearchType cycle() {
+        return values()[(ordinal() + 1) % values().length];
+    }
 }

@@ -5,6 +5,7 @@ import dev.ftb.extendedexchange.ExtendedExchange;
 import dev.ftb.extendedexchange.block.ModBlocks;
 import dev.ftb.extendedexchange.client.gui.AbstractEXScreen;
 import dev.ftb.extendedexchange.client.gui.AlchemyTableScreen;
+import dev.ftb.extendedexchange.client.gui.ArcaneTabletScreen;
 import dev.ftb.extendedexchange.recipes.ModRecipeTypes;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -20,6 +21,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 
@@ -56,6 +58,8 @@ public class JEIIntegration implements IModPlugin {
         registration.addRecipeClickArea(AlchemyTableScreen.class, 78, 35, 23, 14, RecipeTypes.ALCHEMY_TABLE);
 
         registration.addGhostIngredientHandler(AbstractEXScreen.class, new EMCLinkJEI());
+
+        registration.addGuiContainerHandler(ArcaneTabletScreen.class, new ArcaneTabletGuiArea());
     }
 
     private <C extends Container, T extends Recipe<C>> void addRecipeType(IRecipeRegistration registration, RecipeType<T> type, mezz.jei.api.recipe.RecipeType<T> recipeType) {

@@ -28,5 +28,6 @@ public class ClientSetup {
         MenuScreens.register(ModMenuTypes.COMPRESSED_REFINED_LINK.get(), CompressedRefinedLinkScreen::new);
         MenuScreens.register(ModMenuTypes.ALCHEMY_TABLE.get(), AlchemyTableScreen::new);
         MenuScreens.register(ModMenuTypes.STONE_TABLE.get(), StoneTableScreen::new);
+        MenuScreens.register(ModMenuTypes.ARCANE_TABLET.get(), ArcaneTabletScreen::new);
     }
 }

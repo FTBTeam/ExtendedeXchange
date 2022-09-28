@@ -1,10 +1,8 @@
 package dev.ftb.extendedexchange.item;
 
-import moze_intel.projecte.gameObjs.container.TransmutationContainer;
-import moze_intel.projecte.utils.text.PELang;
-import net.minecraft.ChatFormatting;
+import dev.ftb.extendedexchange.menu.ArcaneTabletMenu;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -16,8 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,28 +36,20 @@ public class ArcaneTabletItem extends Item {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(stack, level, list, flag);
-        list.add(new TextComponent("WIP!").withStyle(ChatFormatting.RED));
     }
 
-    private static class ContainerProvider implements MenuProvider {
-        private final InteractionHand hand;
-
-        private ContainerProvider(InteractionHand hand) {
-            this.hand = hand;
-        }
-
+    private record ContainerProvider(InteractionHand hand) implements MenuProvider {
         @Override
         public AbstractContainerMenu createMenu(int windowId, @Nonnull Inventory playerInventory, @Nonnull Player player) {
-            return new TransmutationContainer(windowId, playerInventory, this.hand, 0);
+            return new ArcaneTabletMenu(windowId, playerInventory);
         }
 
         @Override
         @Nonnull
         public Component getDisplayName() {
-            return PELang.TRANSMUTATION_TRANSMUTE.translate();
+            return new TranslatableComponent("item.extendedexchange.arcane_tablet");
         }
     }
 }

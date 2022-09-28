@@ -21,11 +21,12 @@ import net.minecraft.world.item.ItemStack;
 import org.apache.commons.lang3.StringUtils;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
+/**
+ * Base functionality for the Stone Tablet and Arcane Transmutation Tablet GUIs
+ * @param <C>
+ */
 public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends AbstractEXScreen<C,AbstractEMCBlockEntity> implements KnowledgeUpdateListener {
 
     // static so they persist across GUI invocations
@@ -38,6 +39,8 @@ public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends A
 
     public AbstractTableScreen(C menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
+
+        imageHeight = 217;
     }
 
     @Override
@@ -52,7 +55,7 @@ public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends A
         searchField.setMaxLength(35);
         searchField.setValue(staticSearch);
         if (ConfigHelper.client().general.searchType.get().autoselected) {
-            setFocused(searchField);
+            setInitialFocus(searchField);
         }
         addRenderableWidget(searchField);
     }
@@ -141,7 +144,7 @@ public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends A
 
         for (ItemInfo itemInfo : menu.getProvider().getKnowledge()) {
             ItemStack stack = itemInfo.createStack();
-            if (menu.isItemValid(stack) && (srchStr.isEmpty() || mod ?
+            if (!stack.isEmpty() && menu.isItemValid(stack) && (srchStr.isEmpty() || mod ?
                     itemInfo.getItem().getRegistryName().getNamespace().startsWith(srchStr) :
                     StringUtils.contains(trim(stack.getDisplayName().getString()), srchStr)))
             {
@@ -149,7 +152,8 @@ public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends A
             }
         }
 
-        Collections.reverse(validItems);
+        validItems.sort(Comparator.comparingLong(o -> ProjectEAPI.getEMCProxy().getValue(o)));
+//        Collections.reverse(validItems);
         updateDisplayedItems();
     }
 
@@ -162,8 +166,10 @@ public abstract class AbstractTableScreen<C extends AbstractTableMenu> extends A
             int index = i + staticPage * extractButtons.size();
             if (index >= 0 && index < validItems.size()) {
                 extractButtons.get(i).setItem(validItems.get(index));
+                extractButtons.get(i).visible = true;
             } else {
                 extractButtons.get(i).setItem(ItemStack.EMPTY);
+                extractButtons.get(i).visible = false;
             }
         }
     }

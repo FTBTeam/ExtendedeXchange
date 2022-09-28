@@ -16,8 +16,6 @@ public class StoneTableScreen extends AbstractTableScreen<StoneTableMenu> {
 
     public StoneTableScreen(StoneTableMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
-
-        imageHeight = 217;
     }
 
     @Override
