@@ -2,7 +2,7 @@ package dev.ftb.extendedexchange.inventory;
 
 import dev.ftb.extendedexchange.block.entity.AbstractLinkInvBlockEntity;
 import dev.ftb.extendedexchange.config.ConfigHelper;
-import dev.ftb.extendedexchange.util.KnowledgeProviderCache;
+import dev.ftb.extendedexchange.offline.KnowledgeProviderCache;
 import moze_intel.projecte.api.ItemInfo;
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.api.capabilities.IKnowledgeProvider;

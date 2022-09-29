@@ -1,8 +1,6 @@
-package dev.ftb.extendedexchange.util;
+package dev.ftb.extendedexchange.offline;
 
-import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import java.lang.ref.WeakReference;
@@ -23,21 +21,12 @@ public enum KnowledgeProviderCache {
         return INSTANCE;
     }
 
-    public IKnowledgeProvider getCachedProvider(Player player) {
-        return getCachedProvider(player.getLevel(), player.getUUID());
-    }
-
     public IKnowledgeProvider getCachedProvider(Level level, UUID id) {
         OneTickProvider otp = providerMap.get(id);
         if (otp == null || otp.timestamp < level.getGameTime()) {
-            try {
-                OneTickProvider newOtp = new OneTickProvider(level.getGameTime(), new WeakReference<>(ProjectEAPI.getTransmutationProxy().getKnowledgeProviderFor(id)));
-                providerMap.put(id, newOtp);
-                return newOtp.provider().get();
-            } catch (NullPointerException e) {
-                // ugly, but getKnowledgeProviderFor() can throw an NPE if called immediately after player death
-                return null;
-            }
+            OneTickProvider newOtp = new OneTickProvider(level.getGameTime(), new WeakReference<>(OfflineKnowledgeManager.getInstance().getKnowledgeProviderFor(level, id)));
+            providerMap.put(id, newOtp);
+            return newOtp.provider().get();
         } else {
             return otp.provider().get();
         }
