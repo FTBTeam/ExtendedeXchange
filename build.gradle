@@ -134,7 +134,13 @@ if (ENV.CURSEFORGE_KEY) {
 	}
 }
 
-def mavenVersion = System.getenv().SNAPSHOT == "true" ? project.version + "-SNAPSHOT" : project.version
+def ftbURL = "https://maven.ftb.dev/release"
+def sapsURL = "https://maven.saps.dev/minecraft"
+def mavenVersion = project.version
+if (ENV.SNAPSHOT != null && ENV.SNAPSHOT == "true") {
+	ftbURL = "https://maven.ftb.dev/snapshot"
+	mavenVersion += "-SNAPSHOT"
+}
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -149,19 +155,19 @@ publishing {
 	}
 
 	repositories {
-		if (ENV.FTB_MAVEN_TOKEN) {
-			maven {
-				url "https://maven.ftb.dev/release"
-				credentials {
-					username = "ftb"
-					password = "${ENV.FTB_MAVEN_TOKEN}"
-				}
-			}
-		}
+//		if (ENV.FTB_MAVEN_TOKEN) {
+//			maven {
+//				url ftbURL
+//				credentials {
+//					username = "ftb"
+//					password = "${ENV.FTB_MAVEN_TOKEN}"
+//				}
+//			}
+//		}
 
 		if (ENV.SAPS_TOKEN) {
 			maven {
-				url "https://maven.saps.dev/minecraft"
+				url sapsURL
 				credentials {
 					username = "ftb"
 					password = "${ENV.SAPS_TOKEN}"
