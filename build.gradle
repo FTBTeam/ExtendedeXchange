@@ -138,7 +138,7 @@ def ftbURL = "https://maven.ftb.dev/release"
 def sapsURL = "https://maven.saps.dev/minecraft"
 def mavenVersion = project.version
 if (ENV.SNAPSHOT != null && ENV.SNAPSHOT == "true") {
-	ftbURL = "https://maven.ftb.dev/snapshot"
+	ftbURL = "https://maven.ftb.dev/snapshots"
 	mavenVersion += "-SNAPSHOT"
 }
 publishing {
@@ -155,15 +155,15 @@ publishing {
 	}
 
 	repositories {
-//		if (ENV.FTB_MAVEN_TOKEN) {
-//			maven {
-//				url ftbURL
-//				credentials {
-//					username = "ftb"
-//					password = "${ENV.FTB_MAVEN_TOKEN}"
-//				}
-//			}
-//		}
+		if (ENV.FTB_MAVEN_TOKEN) {
+			maven {
+				url ftbURL
+				credentials {
+					username = "ftb"
+					password = "${ENV.FTB_MAVEN_TOKEN}"
+				}
+			}
+		}
 
 		if (ENV.SAPS_TOKEN) {
 			maven {
