@@ -1,6 +1,7 @@
 package dev.ftb.extendedexchange.datagen;
 
 import dev.ftb.extendedexchange.block.ModBlocks;
+import moze_intel.projecte.gameObjs.PETags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
@@ -23,5 +24,7 @@ class ModBlockTagsProvider extends BlockTagsProvider {
                 tag(BlockTags.NEEDS_STONE_TOOL).add(block);
             }
         });
+
+        ModBlocks.POWER_FLOWER.values().forEach(p -> tag(PETags.Blocks.BLACKLIST_TIME_WATCH).add(p.get()));
     }
 }

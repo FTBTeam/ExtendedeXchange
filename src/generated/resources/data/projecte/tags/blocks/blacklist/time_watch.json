@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "extendedexchange:basic_power_flower",
+    "extendedexchange:dark_power_flower",
+    "extendedexchange:red_power_flower",
+    "extendedexchange:magenta_power_flower",
+    "extendedexchange:pink_power_flower",
+    "extendedexchange:purple_power_flower",
+    "extendedexchange:violet_power_flower",
+    "extendedexchange:blue_power_flower",
+    "extendedexchange:cyan_power_flower",
+    "extendedexchange:green_power_flower",
+    "extendedexchange:lime_power_flower",
+    "extendedexchange:yellow_power_flower",
+    "extendedexchange:orange_power_flower",
+    "extendedexchange:white_power_flower",
+    "extendedexchange:fading_power_flower",
+    "extendedexchange:final_power_flower"
+  ]
+}
