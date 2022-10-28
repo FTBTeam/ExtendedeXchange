@@ -27,6 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigInteger;
 
 public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockEntity> implements IGuiButtonListener {
+    private static final BigInteger MAX_INT = BigInteger.valueOf(Integer.MAX_VALUE);
+
     protected final Player player;
     protected final IKnowledgeProvider provider;
 
@@ -59,7 +61,8 @@ public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockE
         if (item != null && item != Items.AIR) {
             BigInteger availableEMC = provider.getEmc();
             BigInteger emc = BigInteger.valueOf(ProjectEAPI.getEMCProxy().getValue(item));
-            int available = emc.equals(BigInteger.ZERO) ? 0 : availableEMC.divide(emc).intValue();
+            BigInteger bigAvail = availableEMC.divide(emc);
+            int available = bigAvail.compareTo(MAX_INT) >= 0 ? Integer.MAX_VALUE : bigAvail.intValue();
             if (available > 0) {
                 ItemStack stack = new ItemStack(item);
                 BigInteger cost = BigInteger.ZERO;

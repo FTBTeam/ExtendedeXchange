@@ -103,8 +103,23 @@ public class ArcaneTabletMenu extends AbstractTableMenu {
     }
 
     @Override
+    public void clicked(int slotId, int button, ClickType clickType, Player player) {
+        if (slotId >= playerSlotsStart && slotId < slots.size()) {
+            Slot slot = slots.get(slotId);
+            if (slot.getSlotIndex() == player.getInventory().selected) {
+                return;
+            }
+        }
+        super.clicked(slotId, button, clickType, player);
+    }
+
+    @Override
     public ItemStack quickMoveStack(Player player, int index) {
-        if (slots.get(index) instanceof ArcaneTabletResultSlot resultSlot) {
+        Slot slot = slots.get(index);
+        if (slot.getSlotIndex() == player.getInventory().selected) {
+            return ItemStack.EMPTY;
+        }
+        if (slot instanceof ArcaneTabletResultSlot resultSlot) {
             if (resultSlot.hasItem()) {
                 ItemStack stack = resultSlot.getItem();
                 ItemStack oldStack = stack.copy();
