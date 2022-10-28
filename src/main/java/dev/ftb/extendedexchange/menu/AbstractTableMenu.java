@@ -61,6 +61,9 @@ public abstract class AbstractTableMenu extends AbstractEXMenu<AbstractEMCBlockE
         if (item != null && item != Items.AIR) {
             BigInteger availableEMC = provider.getEmc();
             BigInteger emc = BigInteger.valueOf(ProjectEAPI.getEMCProxy().getValue(item));
+            if (emc.equals(BigInteger.ZERO)) {
+                return;
+            }
             BigInteger bigAvail = availableEMC.divide(emc);
             int available = bigAvail.compareTo(MAX_INT) >= 0 ? Integer.MAX_VALUE : bigAvail.intValue();
             if (available > 0) {
