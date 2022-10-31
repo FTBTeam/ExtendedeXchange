@@ -1,9 +1,11 @@
 package dev.ftb.extendedexchange.integration.jei;
 
 import com.google.common.collect.ImmutableList;
+import dev.ftb.extendedexchange.block.entity.AbstractEMCBlockEntity;
 import dev.ftb.extendedexchange.client.ClientUtils;
 import dev.ftb.extendedexchange.client.gui.AbstractEXScreen;
 import dev.ftb.extendedexchange.inventory.FilterSlot;
+import dev.ftb.extendedexchange.menu.AbstractEXMenu;
 import dev.ftb.extendedexchange.network.NetworkHandler;
 import dev.ftb.extendedexchange.network.PacketJEIGhost;
 import dev.ftb.extendedexchange.util.EXUtils;
@@ -16,9 +18,9 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public class EMCLinkJEI implements IGhostIngredientHandler<AbstractEXScreen> {
+public class EMCLinkJEI<S extends AbstractEXScreen<M,T>, M extends AbstractEXMenu<T>, T extends AbstractEMCBlockEntity> implements IGhostIngredientHandler<S> {
     @Override
-    public <I> List<Target<I>> getTargets(AbstractEXScreen gui, I ingredient, boolean doStart) {
+    public <I> List<Target<I>> getTargets(S gui, I ingredient, boolean doStart) {
         ImmutableList.Builder<Target<I>> builder = ImmutableList.builder();
         if (ingredient instanceof ItemStack stack
                 && ProjectEAPI.getEMCProxy().hasValue(stack)
@@ -29,8 +31,7 @@ public class EMCLinkJEI implements IGhostIngredientHandler<AbstractEXScreen> {
             for (int i = 0; i < slots.size(); i++) {
                 Slot slot = slots.get(i);
                 if (slot instanceof FilterSlot filterSlot) {
-                    //noinspection unchecked
-                    builder.add((Target<I>) new ItemStackTarget(filterSlot, i, gui));
+                    builder.add(new ItemStackTarget<>(filterSlot, i, gui));
                 }
             }
         }
@@ -41,16 +42,18 @@ public class EMCLinkJEI implements IGhostIngredientHandler<AbstractEXScreen> {
     public void onComplete() {
     }
 
-    private record ItemStackTarget(FilterSlot filterSlot, int rawSlot, AbstractEXScreen gui) implements Target<ItemStack> {
+    private record ItemStackTarget<I>(FilterSlot filterSlot, int rawSlot, AbstractEXScreen<?,?> gui) implements Target<I> {
         @Override
         public Rect2i getArea() {
             return new Rect2i(gui.getGuiLeft() + filterSlot.x, gui.getGuiTop() + filterSlot.y, 16, 16);
         }
 
         @Override
-        public void accept(ItemStack ingredient) {
-            filterSlot.set(ingredient);
-            NetworkHandler.sendToServer(new PacketJEIGhost(rawSlot, ingredient));
+        public void accept(I ingredient) {
+            if (ingredient instanceof ItemStack stack) {
+                filterSlot.set(stack);
+                NetworkHandler.sendToServer(new PacketJEIGhost(rawSlot, stack));
+            }
         }
     }
 }

@@ -122,7 +122,7 @@ if (ENV.CURSEFORGE_KEY) {
 			id = project.curseforge_id
 			releaseType = relType
 			addGameVersion "Forge"
-			addGameVersion = project.minecraft_version
+			addGameVersion project.minecraft_version
 			mainArtifact(jar.archiveFile)
 			relations {
 				requiredDependency 'jei'

@@ -55,7 +55,7 @@ public class JEIIntegration implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
         registration.addRecipeClickArea(AlchemyTableScreen.class, 78, 35, 23, 14, RecipeTypes.ALCHEMY_TABLE);
 
-        registration.addGhostIngredientHandler(AbstractEXScreen.class, new EMCLinkJEI());
+        registration.addGhostIngredientHandler(AbstractEXScreen.class, new EMCLinkJEI<>());
 
         registration.addGuiContainerHandler(ArcaneTabletScreen.class, new ArcaneTabletGuiArea());
     }
