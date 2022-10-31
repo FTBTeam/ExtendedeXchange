@@ -125,10 +125,10 @@ if (ENV.CURSEFORGE_KEY) {
 			addGameVersion project.minecraft_version
 			mainArtifact(jar.archiveFile)
 			relations {
-				requiredDependency 'jei'
 				requiredDependency 'projecte'
+				optionalDependency 'jei'
 			}
-			changelog = file("./CHANGELOG.md")
+			changelog = ENV.CHANGELOG  // expected to exist if ENV.CURSEFORGE does
 			changelogType = 'markdown'
 		}
 	}
