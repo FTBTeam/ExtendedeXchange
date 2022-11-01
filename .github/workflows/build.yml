@@ -16,11 +16,6 @@ jobs:
     if: |
       !contains(github.event.head_commit.message, '[ci skip]')
     steps:
-      - name: Export release tag as environment variable
-        env:
-          TAG: ${{ github.event.release.tag_name }}
-        run: |
-          echo "TAG=${TAG}" >> $GITHUB_ENV
       - uses: actions/checkout@v3
         with:
           fetch-depth: 30 # Gets the last 30 commits so the changelog might work
