@@ -52,7 +52,7 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
         IKnowledgeProvider knowledgeProvider = null;
         if (owningBlockEntity.getStoredEmc() < value) {
             knowledgeProvider = KnowledgeProviderCache.getInstance().getCachedProvider(owningBlockEntity.getLevel(), owningBlockEntity.getOwnerId());
-            if (knowledgeProvider == null || knowledgeProvider.getEmc().longValue() < value) {
+            if (knowledgeProvider == null || knowledgeProvider.getEmc().compareTo(BigInteger.valueOf(value)) == -1) {
                 return ItemStack.EMPTY;
             }
         }

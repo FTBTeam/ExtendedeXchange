@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractLinkScreen<C extends AbstractLinkMenu<T>, T extends AbstractLinkInvBlockEntity> extends AbstractEXScreen<C,T> {
@@ -29,8 +30,8 @@ public abstract class AbstractLinkScreen<C extends AbstractLinkMenu<T>, T extend
     @Override
     protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
         // TODO handle long overflow?
-        long emc = Minecraft.getInstance().player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY)
-                .map(p -> p.getEmc().longValue()).orElse(0L);
+        BigInteger emc = Minecraft.getInstance().player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY)
+                .map(p -> p.getEmc()).orElse(BigInteger.ZERO);
 
         font.draw(poseStack, menu.getBlockEntity().getOwnerName(), 8f, 6f, 0x404040);
 

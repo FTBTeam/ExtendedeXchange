@@ -16,6 +16,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 @Mod.EventBusSubscriber(modid = ExtendedExchange.MOD_ID, value = Dist.CLIENT)
@@ -66,7 +67,7 @@ public class EXClientEventHandler {
                 (!ConfigHelper.client().general.onlyShowEMCWhenHoldingModItem.get() || holdingValidItem(Minecraft.getInstance().player)))
         {
             EMCOverlayPosition oPos = ConfigHelper.client().general.screenPosition.get();
-            if (oPos != EMCOverlayPosition.DISABLED && emcAmount > 0D) {
+            if (oPos != EMCOverlayPosition.DISABLED && emcAmount > 0 ) {
                 String s = EMCFormat.INSTANCE.format(emcAmount);
                 if (emcRate != 0L) {
                     s += (emcRate > 0L ? (ChatFormatting.GREEN + "+") : (ChatFormatting.RED + "-")) + EMCFormat.INSTANCE.format(Math.abs(emcRate)) + "/s";
