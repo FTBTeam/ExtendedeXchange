@@ -6,16 +6,13 @@ import dev.ftb.extendedexchange.block.entity.AbstractLinkInvBlockEntity;
 import dev.ftb.extendedexchange.client.EXClientEventHandler;
 import dev.ftb.extendedexchange.inventory.FilterSlot;
 import dev.ftb.extendedexchange.menu.AbstractLinkMenu;
-import moze_intel.projecte.api.capabilities.PECapabilities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public abstract class AbstractLinkScreen<C extends AbstractLinkMenu<T>, T extends AbstractLinkInvBlockEntity> extends AbstractEXScreen<C,T> {
@@ -29,17 +26,8 @@ public abstract class AbstractLinkScreen<C extends AbstractLinkMenu<T>, T extend
 
     @Override
     protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-        // TODO handle long overflow?
-        BigInteger emc = Minecraft.getInstance().player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY)
-                .map(p -> p.getEmc()).orElse(BigInteger.ZERO);
-
         font.draw(poseStack, menu.getBlockEntity().getOwnerName(), 8f, 6f, 0x404040);
-
-        String s = EMCFormat.INSTANCE.format(emc);
-        if (EXClientEventHandler.emcRate != 0D) {
-            s += (EXClientEventHandler.emcRate > 0D ? (ChatFormatting.DARK_GREEN + "+") : (ChatFormatting.RED + "-")) + EMCFormat.INSTANCE.format(Math.abs(EXClientEventHandler.emcRate)) + "/s";
-        }
-        font.draw(poseStack, s, 8, getEMCLabelYPos(), 0x404040);
+        font.draw(poseStack, EXClientEventHandler.getEMCRateString(), 8, getEMCLabelYPos(), 0x404040);
     }
 
     protected int getEMCLabelYPos() {
