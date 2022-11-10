@@ -26,14 +26,14 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: build --no-daemon
       - name: Publish to Maven
         uses: gradle/gradle-build-action@v2
         env:
           FTB_MAVEN_TOKEN: ${{ secrets.FTB_MAVEN_TOKEN}}
           SAPS_TOKEN: ${{ secrets.SAPS_TOKEN }}
         with:
-          arguments: publish
+          arguments: publish --no-daemon
       - name: Release to CurseForge
         uses: gradle/gradle-build-action@v2
         env:
@@ -42,4 +42,4 @@ jobs:
           CURSEFORGE_KEY: ${{ secrets.CURSEFORGE_KEY }}
           CHANGELOG: ${{ github.event.release.body }}
         with:
-          arguments: curseforge
+          arguments: curseforge --no-daemon

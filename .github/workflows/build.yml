@@ -29,7 +29,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: build --no-daemon
       - name: Publish to Maven
         uses: gradle/gradle-build-action@v2
         if: github.event.inputs.skip_maven_publish != 'true'
@@ -38,4 +38,4 @@ jobs:
           SAPS_TOKEN: ${{ secrets.SAPS_TOKEN }}
           SNAPSHOT: true
         with:
-          arguments: publish
+          arguments: publish --no-daemon
