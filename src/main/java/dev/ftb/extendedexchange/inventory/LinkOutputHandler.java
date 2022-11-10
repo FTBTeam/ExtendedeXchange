@@ -113,7 +113,7 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
     }
 
     private int capAmount(@Nullable IKnowledgeProvider knowledgeProvider, long value, long limit) {
-        long emc = knowledgeProvider == null ? owningBlockEntity.getStoredEmc() : knowledgeProvider.getEmc().longValue();
-        return emc < value ? 0 : (int) (Math.min(limit, emc / value));
+        BigInteger emc = knowledgeProvider == null ? BigInteger.valueOf(owningBlockEntity.getStoredEmc()) : knowledgeProvider.getEmc();
+        return emc.compareTo(BigInteger.valueOf(value)) == -1 ? 0 : (int) (Math.min(limit, emc.divide(BigInteger.valueOf(value)).longValue()));
     }
 }
