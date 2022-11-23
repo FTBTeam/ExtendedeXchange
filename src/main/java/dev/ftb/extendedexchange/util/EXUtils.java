@@ -11,8 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 
+import java.math.BigInteger;
+
 public class EXUtils {
     public static final Direction[] DIRECTIONS = Direction.values();
+
+    private static final BigInteger MAX_LONG = BigInteger.valueOf(Long.MAX_VALUE);
+    private static final BigInteger MAX_INT = BigInteger.valueOf(Integer.MAX_VALUE);
 
     public static ResourceLocation rl(String path) {
         return new ResourceLocation(ExtendedExchange.MOD_ID, path);
@@ -42,6 +47,10 @@ public class EXUtils {
 
     public static boolean playerHasKnowledge(Player player, ItemStack stack) {
         return ProjectEAPI.getTransmutationProxy().getKnowledgeProviderFor(player.getUUID()).hasKnowledge(stack);
+    }
+
+    public static int bigIntToInt(BigInteger n) {
+        return n.compareTo(MAX_INT) > 0 ? Integer.MAX_VALUE : n.intValueExact();
     }
 
     public enum KnowledgeAddResult {

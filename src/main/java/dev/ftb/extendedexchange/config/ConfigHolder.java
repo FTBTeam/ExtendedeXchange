@@ -24,6 +24,8 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.math.BigInteger;
+
 public class ConfigHolder {
     static ClientConfig client;
     static ServerConfig server;
@@ -55,6 +57,7 @@ public class ConfigHolder {
     }
 
     private static void refreshServer() {
+        ConfigHelper.emcLinkMaxOutput = BigInteger.valueOf(ConfigHelper.server().general.emcLinkMaxOutput.get());
     }
 
     private static void refreshClient() {

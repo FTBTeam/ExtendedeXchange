@@ -3,6 +3,7 @@ package dev.ftb.extendedexchange.client.gui;
 import dev.ftb.extendedexchange.config.ConfigHelper;
 import net.minecraft.client.gui.screens.Screen;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.FieldPosition;
@@ -20,6 +21,26 @@ public class EMCFormat extends DecimalFormat {
         super("#,###");
         setRoundingMode(RoundingMode.DOWN);
         ignoreShift = is;
+    }
+
+    public static String formatBigDecimal(BigDecimal d) {
+        String s = d.toString();
+        if (s.length() >= 25) {
+            s = s.substring(0, s.length() - 24) + "Y";
+        } else if (s.length() >= 22) {
+            s = s.substring(0, s.length() - 21) + "Z";
+        } else if (s.length() >= 19) {
+            s = s.substring(0, s.length() - 18) + "E";
+        } else if (s.length() >= 16) {
+            s = s.substring(0, s.length() - 15) + "P";
+        } else if (s.length() >= 13) {
+            s = s.substring(0, s.length() - 12) + "T";
+        } else if (s.length() >= 10) {
+            s = s.substring(0, s.length() - 9) + "G";
+        } else if (s.length() >= 7) {
+            s = s.substring(0, s.length() - 6) + "M";
+        }
+        return s;
     }
 
     @Override
