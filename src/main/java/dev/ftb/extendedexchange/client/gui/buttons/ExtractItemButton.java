@@ -15,6 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import org.lwjgl.opengl.GL11;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class ExtractItemButton extends EXButton {
@@ -61,16 +63,18 @@ public class ExtractItemButton extends EXButton {
         }
     }
 
+    private static final BigDecimal ONE_TENTH = BigDecimal.valueOf(1L, 1);
     private String getExtractionCountStr() {
         long emc = ProjectEAPI.getEMCProxy().getValue(item);
         if (emc == 0L) return "???"; // shouldn't happen, but...
 
         String label = "";
-        double d = provider.getEmc().longValue() / (double) emc;
-        if (d >= 1D) {
-            label = EMCFormat.INSTANCE_IGNORE_SHIFT.format(d);
-        } else if (d >= 0.1D) {
-            label = Double.toString(((int) (d * 10D)) / 10D);
+        BigDecimal d = new BigDecimal(provider.getEmc()).setScale(1, RoundingMode.DOWN)
+                .divide(BigDecimal.valueOf(emc), RoundingMode.DOWN);
+        if (d.compareTo(BigDecimal.ONE) >= 0) {
+            label = EMCFormat.formatBigDecimal(d.setScale(0, RoundingMode.DOWN));
+        } else if (d.compareTo(ONE_TENTH) >= 0) {
+            label = d.toString();
         }
         return label;
     }

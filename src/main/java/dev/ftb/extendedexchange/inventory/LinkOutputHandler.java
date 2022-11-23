@@ -3,6 +3,7 @@ package dev.ftb.extendedexchange.inventory;
 import dev.ftb.extendedexchange.block.entity.AbstractLinkInvBlockEntity;
 import dev.ftb.extendedexchange.config.ConfigHelper;
 import dev.ftb.extendedexchange.offline.KnowledgeProviderCache;
+import dev.ftb.extendedexchange.util.EXUtils;
 import moze_intel.projecte.api.ItemInfo;
 import moze_intel.projecte.api.ProjectEAPI;
 import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
@@ -47,12 +48,12 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
         if (stack.isEmpty()) return ItemStack.EMPTY;
 
         long value = ProjectEAPI.getEMCProxy().getValue(stack);
-        if (value <= 0L) return ItemStack.EMPTY;
+        if (value == 0L) return ItemStack.EMPTY;
 
         IKnowledgeProvider knowledgeProvider = null;
         if (owningBlockEntity.getStoredEmc() < value) {
             knowledgeProvider = KnowledgeProviderCache.getInstance().getCachedProvider(owningBlockEntity.getLevel(), owningBlockEntity.getOwnerId());
-            if (knowledgeProvider == null || knowledgeProvider.getEmc().compareTo(BigInteger.valueOf(value)) == -1) {
+            if (knowledgeProvider == null || knowledgeProvider.getEmc().compareTo(BigInteger.valueOf(value)) < 0) {
                 return ItemStack.EMPTY;
             }
         }
@@ -60,7 +61,7 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
         // At this point we know there's either enough EMC in the block, or in the player's personal network
         // to pull at least one of the desired item out. See capAmount() below for actual amount which will be pulled.
 
-        ItemStack toExtract = ItemHandlerHelper.copyStackWithSize(stack, capAmount(knowledgeProvider, value, Math.min(amount, stack.getMaxStackSize())));
+        ItemStack toExtract = ItemHandlerHelper.copyStackWithSize(stack, Math.min(amount, capAmount(knowledgeProvider, value, ConfigHelper.getEMCLinkMaxOutput())));
         if (!toExtract.isEmpty()) {
             if (!simulate) {
                 long totalValue = value * toExtract.getCount();
@@ -97,7 +98,7 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
         if (value > 0L) {
             IKnowledgeProvider provider = KnowledgeProviderCache.getInstance().getCachedProvider(owningBlockEntity.getLevel(), owningBlockEntity.getOwnerId());
             if (provider != null) {
-                int actualAmount = capAmount(provider, value, ConfigHelper.server().general.emcLinkMaxOutput.get());
+                int actualAmount = capAmount(provider, value, ConfigHelper.getEMCLinkMaxOutput());
                 if (actualAmount > 0) {
                     return ItemHandlerHelper.copyStackWithSize(stacks.get(slot), actualAmount);
                 }
@@ -112,8 +113,15 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
         return super.getStackInSlot(slot);
     }
 
-    private int capAmount(@Nullable IKnowledgeProvider knowledgeProvider, long value, long limit) {
+    private int capAmount(@Nullable IKnowledgeProvider knowledgeProvider, long value, BigInteger emcLimit) {
         BigInteger emc = knowledgeProvider == null ? BigInteger.valueOf(owningBlockEntity.getStoredEmc()) : knowledgeProvider.getEmc();
-        return emc.compareTo(BigInteger.valueOf(value)) == -1 ? 0 : (int) (Math.min(limit, emc.divide(BigInteger.valueOf(value)).longValue()));
+        BigInteger cappedEMC = emc.min(emcLimit);
+        if (cappedEMC.compareTo(BigInteger.valueOf(value)) < 0) {
+            // not enough EMC for a single item
+            return 0;
+        } else {
+            BigInteger itemCount = value == 1 ? cappedEMC : cappedEMC.divide(BigInteger.valueOf(value));
+            return EXUtils.bigIntToInt(itemCount);
+        }
     }
 }
