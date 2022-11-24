@@ -41,6 +41,7 @@ public class ExtendedExchange {
         modBus.addListener(this::commonSetup);
 
         forgeBus.addListener(this::addReloadListeners);
+        forgeBus.addListener(EMCSyncHandler.INSTANCE::onServerTick);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

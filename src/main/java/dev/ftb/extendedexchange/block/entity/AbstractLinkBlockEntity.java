@@ -1,5 +1,6 @@
 package dev.ftb.extendedexchange.block.entity;
 
+import dev.ftb.extendedexchange.EMCSyncHandler;
 import moze_intel.projecte.api.capabilities.PECapabilities;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -74,7 +75,7 @@ public class AbstractLinkBlockEntity extends AbstractEMCBlockEntity {
                         provider.setEmc(provider.getEmc().add(BigInteger.valueOf(storedEMC)));
                         storedEMC = 0L;
                         setChanged();
-                        provider.syncEmc(player);
+                        EMCSyncHandler.INSTANCE.needsSync(player);
                     });
                 }
             }
@@ -137,11 +138,6 @@ public class AbstractLinkBlockEntity extends AbstractEMCBlockEntity {
     }
 
     public void trySyncEMC() {
-        if (level != null && !level.isClientSide && level.getServer() != null) {
-            ServerPlayer player = level.getServer().getPlayerList().getPlayer(getOwnerId());
-            if (player != null) {
-                player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY).ifPresent(provider -> provider.syncEmc(player));
-            }
-        }
+        EMCSyncHandler.INSTANCE.needsSync(getOwnerId());
     }
 }
