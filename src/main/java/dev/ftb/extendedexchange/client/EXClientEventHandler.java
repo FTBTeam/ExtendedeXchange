@@ -37,9 +37,9 @@ public class EXClientEventHandler {
     public static void onClientTick(TickEvent.ClientTickEvent event) {
         if (event.phase == TickEvent.Phase.END && Minecraft.getInstance().player != null) {
             // calculate change rate in player's personal EMC using a 5-second running average
-            emcAmount = Minecraft.getInstance().player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY)
-                    .map(IKnowledgeProvider::getEmc).orElse(BigInteger.ZERO);
-            if (timer == 1) {
+            if (++timer == 20) {
+                emcAmount = Minecraft.getInstance().player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY)
+                        .map(IKnowledgeProvider::getEmc).orElse(BigInteger.ZERO);
                 emcRingBuffer.add(emcAmount.subtract(lastEMC));
                 lastEMC = emcAmount;
 
@@ -49,10 +49,8 @@ public class EXClientEventHandler {
                 }
                 emcRate = emcRate.divide(bufferSize);
 
-                timer = -1; //Should be -1 as this leaves the if it would increment. Toys0125
+                timer = 0;
             }
-
-            timer = (timer + 1) % 20;
         }
     }
 
