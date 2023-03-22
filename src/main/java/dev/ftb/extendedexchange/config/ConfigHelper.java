@@ -27,4 +27,6 @@ public class ConfigHelper {
     public static BigInteger getEMCLinkMaxOutput() {
         return emcLinkMaxOutput;
     }
+
+    public static int getEMCLinkMaxStackSize() { return server().general.emcLinkMaxStackSize.get(); }
 }
