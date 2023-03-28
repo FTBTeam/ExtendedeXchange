@@ -121,7 +121,7 @@ public class LinkOutputHandler extends BaseItemStackHandler<AbstractLinkInvBlock
             return 0;
         } else {
             BigInteger itemCount = value == 1 ? cappedEMC : cappedEMC.divide(BigInteger.valueOf(value));
-            return EXUtils.bigIntToInt(itemCount);
+            return EXUtils.bigIntToInt(itemCount.min(BigInteger.valueOf(ConfigHelper.getEMCLinkMaxStackSize())));
         }
     }
 }

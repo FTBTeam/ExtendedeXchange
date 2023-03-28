@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 public class ServerConfig {
     public static class General {
         public ForgeConfigSpec.LongValue emcLinkMaxOutput;
+        public ForgeConfigSpec.IntValue emcLinkMaxStackSize;
         public ForgeConfigSpec.BooleanValue enableStoneTableWhitelist;
         public ForgeConfigSpec.BooleanValue finalStarCopiesAnyItem;
         public ForgeConfigSpec.BooleanValue finalStarCopiesNBT;
@@ -19,6 +20,9 @@ public class ServerConfig {
         general.emcLinkMaxOutput = builder
                 .comment("Max EMC which Personal/Refined/Compressed Refined Link Blocks can remove from personal EMC (in one operation) when extracting items. Setting this to 0 disables extraction of any item from these blocks.")
                 .defineInRange("emc_link_max_output", 2_000_000_000L, 0, Long.MAX_VALUE);
+        general.emcLinkMaxStackSize = builder
+                .comment("Max stack size which Personal/Refined/Compressed Refined Link Blocks will return when extracting items. Setting this to 0 disables extraction of any item from these blocks.")
+                .defineInRange("emc_link_max_stack_size", 2_000_000_000, 0, Integer.MAX_VALUE);
         general.enableStoneTableWhitelist = builder
                 .comment("If false, ignore the Stone Table whitelist, which is the 'extendedexchange:stone_table_whitelist' item tag. If true, only items in that tag can be placed in the Stone Table.")
                 .define("enable_stone_table_whitelist", false);
